@@ -20,7 +20,8 @@
         <div class="container">
             <h2>待完成事项 todulist</h2>
             <div class="input-group mb-3">
-                <input type="text" v-model="cons" @keyup.enter="addList()" class="form-control" placeholder="要完成的任务">
+                <input type="text" v-model="cons" ref="taskele" @keyup.enter="addList()" class="form-control"
+                    placeholder="要完成的任务" autofocus>
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">
                         <input v-model="endtime" type="date"
@@ -145,6 +146,11 @@
                             endtime: this.endtime
                         }
                         this.taskList.push(con);//新任务放在下面
+
+                        //清空数据并聚焦
+                        this.cons = '';
+                        //js给节点绑定 节点.focus()  在节点上面绑定属性：autofucus也可以聚焦，但是在一些浏览器会失效 移动端苹果浏览器失效 safari
+                        this.$refs.taskele.focus();
                     }
 
                 },

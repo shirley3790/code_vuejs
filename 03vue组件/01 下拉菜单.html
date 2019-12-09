@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <style>
+        #con {
+            width: 200px;
+            height: 200px;
+            background: #58bc58;
+            margin-top: 20px;
+        }
+
+        .two {
+            width: 200px;
+            height: 200px;
+            background: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 
+           v-if 和 v-show区别：
+            * v-if : 创建和删除节点,操作后期不会经常变动的就用v-if
+            * v-show ：显示和隐藏,后期如果频繁显示隐藏，那就用v-show
+        -->
+        <input type="button" value="下拉菜单" @click="change">
+        <div id="con" v-if="istrue"></div>
+        <!-- <div class="two" v-else="istrue"></div> -->
+        <div class="two" v-else></div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            istrue: true
+        },
+        methods: {
+            change() {
+                this.istrue = !this.istrue;
+            }
+        }
+    })
+</script>
+
+</html>
