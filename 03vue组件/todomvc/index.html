@@ -16,7 +16,7 @@
 		<header class="header">
 			<h1>todos</h1>
 			<input v-model="msg" @keyup.enter="add($event)" class="new-todo" placeholder="What needs to be done?"
-				autofocus>
+				v-focus>
 		</header>
 		<!-- This section should be hidden by default and shown when there are todos -->
 		<section class="main">
@@ -38,7 +38,7 @@
 							* 按下回车键或失去焦点的时候，保存新数据并退出编辑状态
 								* 回车或失去焦点的时候，选项里面内容为空：删掉该选项
 						 -->
-					<input class="edit" @keyup.esc="cancel()" @blur="saveItem(index,$event)"
+					<input v-focus class="edit" @keyup.esc="cancel()" @blur="saveItem(index,$event)"
 						@keyup.enter="saveItem(index,$event)" :value="item.content">
 				</li>
 

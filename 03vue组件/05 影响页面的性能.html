@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <button class="btn">0</button>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    /*
+        05 影响页面的性能
+            * DOM操作过多
+            * 事件绑定次数
+            * 外部引入资源过多或过大
+            * js文件位置
+            * 发送请求过多
+    */
+
+    console.time('start');
+
+    let btn = document.querySelector('.btn');
+    let num = btn.innerText;
+    for (var i = 0; i < 10000; i++) {
+        num++
+    }
+    btn.innerText = num;
+    console.timeEnd('start');//花费时间
+
+    let vm = new Vue({
+        el: '#app'
+    });
+
+
+</script>
+
+</html>

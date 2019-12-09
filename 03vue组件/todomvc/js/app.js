@@ -27,6 +27,16 @@
 		}
 	}
 
+	//注册一个全局的指令 focus，可以用来获取焦点，做兼容处理
+	Vue.directive('focus', {//用的时候记得要加上 v-focus
+		inserted: function (el, binding) {
+			el.focus();
+		},
+		update: function (el, binding) {//在双击的时候，已经更新了表单的value值
+			el.focus();
+		}
+	})
+
 
 	let vm = new Vue({
 		//vue管理对象
@@ -167,4 +177,6 @@
 		// console.log(status);
 		vm.filterStatus = status;//想在点击按钮的时候，检测到最新的哈希，来确定我们的状态，后期我们就可以根据状态来过滤数据
 	}
+
+	window.onhashchange();//调用一下
 })();

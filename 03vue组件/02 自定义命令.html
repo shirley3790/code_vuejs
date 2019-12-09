@@ -11,7 +11,13 @@
 <body>
     <div id="app">
         <div v-text-upper>dsadsfa字母</div>
+        <!-- <input type="text" v-focus> -->
     </div>
+    <div id="app2">
+        <div v-text-upper>app2的测试</div>
+        <!-- <input type="text" v-focus> -->
+    </div>
+
 </body>
 <script src="../vue.js"></script>
 <script>
@@ -19,14 +25,15 @@
     /*
         自定义命令：
             * 注册命令：(类似函数的声明，函数调用之前要声明)
-                * 全局命令
+                * 全局指令
                     Vue.directive(name,option)
                         * name : 指令的名字
                         * option ：参数
-                * 局部命令
+                * 局部指令
                     写在局部
             * 使用命令:v-name
     */
+
 
     //需求：注册一个指令 v-text-upper：能把所有的字母变成大写输出
     Vue.directive('textUpper', {
@@ -38,7 +45,7 @@
             //     'expression: ' + JSON.stringify(binding.expression) + '<br>' + //字符串形式的指令表达式
             //     'arg: ' + JSON.stringify(binding.arg) + '<br>' + //指令参数，
             //     'modifiers: ' + JSON.stringify(binding.modifiers) + '<br>' //指令修饰符
-
+            el.style.color = 'red';
             el.innerHTML = el.innerHTML.toUpperCase();
         },
         inserted: function () {
@@ -48,8 +55,22 @@
     });
 
     let vm = new Vue({
-        el: '#app'
-    })
+        el: '#app',
+        directives: {
+            //自定义局部指令 autofocus有兼容问题，自定义v-focus指令可以解决该问题
+            'focus': {
+                inserted: function (el, binding) {
+                    //节点渲染后就执行这里
+                    el.focus();
+                }
+            }
+        }
+    });
+
+    let vm2 = new Vue({
+        el: '#app2'
+    });
+
 </script>
 
 </html>

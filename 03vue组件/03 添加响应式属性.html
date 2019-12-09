@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(value, key, index) in score">
+                {{ index + 1 }} - {{ key }} ：{{ value }}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(item, index) in hobby">
+                {{ index + 1}} - {{ item }}
+            </li>
+        </ul>
+        <button @click="addScore('meishu')">美术</button>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    /*
+        添加响应式属性：
+            * 直接实例化的时候把属性写在data
+            * Vue.set(vm.score, 'wuli', 100) / vm.$set(target,key,value)
+            * 数组的变异方法
+    */
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            username: 'laoxie',
+            score: {
+                math: 148,
+                chinese: 120,
+                english: 110,
+            },
+            hobby: ['篮球', '美食']
+        },
+        methods: {
+            addScore() {
+                this.$set(this.score, 'meishu', 120);
+            }
+        }
+    });
+
+    Vue.set(vm.score, 'wuli', 100);
+    vm.$set(vm.score, 'huaxue', 99);
+</script>
+
+</html>

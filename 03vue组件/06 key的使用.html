@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(value, index) in namelist" :key="value">
+                <input type="checkbox">
+                {{ index +1 }} - {{ value }}
+            </li>
+        </ul>
+        <input type="button" value="添加" @click="add()">
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    /**
+            Key的作用
+                * 唯一且稳定
+                * 同级且同类型的元素上
+                    * 无key: 复用原则
+                    * 有key：回到以前做法
+        */
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            namelist: ['laoxie', 'jingjing', 'laoyao']
+        },
+        methods: {
+            add() {
+                this.namelist.unshift('laotian');
+            }
+        }
+    })
+</script>
+
+</html>

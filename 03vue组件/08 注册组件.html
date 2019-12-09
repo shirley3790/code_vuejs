@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 引用全局组件 -->
+        <app-header></app-header>
+        <app-main></app-main>
+        <appheader></appheader>
+        <!-- 引用局部组件 -->
+        <app-sidber></app-sidber>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script src="./components/appheader.js"></script>
+<script src="./components/appmain.js"></script>
+<script src="./components/appfoot.js"></script>
+<script>
+    /*
+        注册全局组件：
+        Vue.component('组件名',{
+                template: '定义组件模板'， 
+                data: function(){ //data 选项在组件中必须是一个函数
+                    return {}
+                }
+                //其他选项：methods
+                })
+
+        组件：
+            * 注册组件 ： app-header
+                * 全局组件
+                * 局部组件
+            * 利用标签引入组件 : <app-header><app-header>
+    */
+
+    //注册局部组件
+    let appsidber = {
+        template: '<p @click="show($event)">侧栏广告-{{ msg }}</p>',//放html模板
+        data: function () {//注意data一定要写成函数的形式，在里面返回一个对象
+            return {
+                msg: '右侧'
+            }
+        },
+        methods: {
+            show(ev) {
+                alert(ev.target.innerHTML);
+            }
+        }
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        components: {
+            'app-sidber': appsidber
+        }
+    })
+</script>
+
+</html>

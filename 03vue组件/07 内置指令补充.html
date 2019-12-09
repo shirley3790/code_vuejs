@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p v-cloak>{{ msg }}</p>
+        <p v-cloak>{{ msg }}</p>
+        <p v-cloak>{{ msg }}</p>
+        <p v-text="msg"></p>
+        <p v-html="msg"></p>
+        <!-- 需求：想显示双花括号 -->
+        <p v-pre>{{ keyword }}</p>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    /*
+        v-text 花括号闪现，缺点，不能渲染节点， innerText
+        v-html 相当于innerHTML,防止xss攻击
+        v-cloak 解决闪现，写一个属性display:none.数据没到之前，该指令所在标签隐藏，看不到{{}}，数据到了，就会自动移出该样式display：block
+        v-pre
+    */
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '<h1>拼搏到无能为力</h1>'
+            // keyword: '非常好'
+        }
+    });
+
+
+</script>
+
+</html>
