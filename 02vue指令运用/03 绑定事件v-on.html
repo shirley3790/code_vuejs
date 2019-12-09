@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <style>
+        .father {
+            padding: 20px;
+            background: green;
+        }
+
+        .son {
+            padding: 20px;
+            background: palevioletred;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.如何获取事件对象ev -->
+        <p @click="show()">字节跳动</p>
+        <p @click="showme('hello',$event)">字节跳动</p>
+
+        <!-- 2.阻止冒泡 -->
+        <div class="father" @click="father()">
+            <p class="son" @click.stop="son()"></p>
+        </div>
+
+        <!-- 
+            3.阻止默认行为
+                * a标签设置了href  点击就跳转
+                * 右键出现菜单
+                * form表单 如果写submit提交，自动提交到form的action属性所在的页面
+                * 文字被选中
+         -->
+        <a href="http://baidu.com" @click.prevent="showthis()">百度</a>
+
+        <!-- 4..one绑定一次事件 -->
+        <button @click.once="doOnly">点击事件将只会触发一次: {{num}}</button>
+
+        <!-- 5.键盘修饰符 -->
+        <!-- <input type="text" @keyup.enter="what()"> -->
+        <input type="text" @keyup.13="what()">
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            num: 0
+        },
+
+        methods: {
+            show(ev) {//触发事件的事件的时候，事件对象
+                console.log('点我了');
+                console.log(ev.target.innerHTML);//获取节点的内容
+                console.log(ev.target.tagName);//P
+            },
+            showme(data, ev) {
+                console.log(data + '老大');
+                console.log(ev.target);
+                console.log(data + '老大' + ev.target.innerHTML);
+            },
+            father() {
+                alert('father被调用了');
+            },
+            son() {
+                alert('son被调用了');
+            },
+            showthis() {
+                console.log('阻止了默认行为');
+            },
+            doOnly() {
+                this.num++;
+            },
+            what() {
+                console.log('按下了回车键，提交内容');
+            }
+        }
+    });
+
+</script>
+
+</html>

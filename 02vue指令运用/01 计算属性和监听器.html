@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.vue里面设置了v-model后就相当于设置了value值 -->
+        语文：<input type="text" v-model="chinese">
+        数学：<input type="text" v-model="math"><br>
+        总分(单项)：<input type="text" v-model="sum1()"><br>
+
+        <!-- 2.计算属性调用的时候不要写圆括号 -->
+        总分(单项)：<input type="text" v-model="sum2"><br>
+        总分(双向)：<input type="text" v-model="sum3"><br>
+        <!-- 3.监听器方式 -->
+        总分(双向)：<input type="text" v-model="total"><br>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        //data：放普通属性
+        data: {
+            chinese: 88,
+            math: 90,
+            total: 0
+        },
+        //methods放方法
+        methods: {
+            sum1() {
+                console.log('普通的函数sum1被调用了');
+                //this指的是vm，可以用vm.chinese this.chinese vm.sum1()
+                return this.chinese * 1 + this.math * 1;
+            }
+        },
+        //computed 计算属性 里面的属性 getter&setter
+        computed: {
+            sum2() {//计算属性会进行缓存，如果值没有改变，不会调用，只有被改变了，才会重新调用计算。默认只有getter函数，所以也是单向的
+                console.log('计算属性sum2被调用了');
+                //this指的是vm，可以用vm.chinese this.chinese vm.sum1()
+                return this.chinese * 1 + this.math * 1;
+            },
+            sum3: {
+                get() {
+                    console.log('计算属性sum2被调用了');
+                    //this指的是vm，可以用vm.chinese this.chinese vm.sum1()
+                    return this.chinese * 1 + this.math * 1;
+                },
+                set(newval) {
+                    console.log(newval);
+                    this.chinese = this.math = (newval / 2).toFixed(1);
+                }
+            }
+        },
+
+        //watch 监听器
+        watch: { //监听器第一种写法
+            //如果语文发生改变就触发这里
+            chinese: function (newval, oldval) {
+                // console.log(newval, oldval);
+                this.total = this.math * 1 + newval * 1;
+                // this.sum1();
+            }
+        }
+    });
+
+    //监听器第二种写法:监听数学
+    vm.$watch('math', function (newval) {
+        // console.log(this);
+        this.total = newval * 1 + this.chinese * 1;
+    });
+
+    // //监听总分 不要这样写：因为total的变化，让语文和数学变化，数学和语文变化有被监听到，又被触发。
+    // vm.$watch('total', function (newval) {
+    //     //拿到总分的新值，平均分给语文数学
+    //     this.chinese = this.math = (newval / 2).toFixed(1);
+    // });
+</script>
+
+</html>

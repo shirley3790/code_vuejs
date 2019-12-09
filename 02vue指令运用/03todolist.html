@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <style>
+        .container {
+            padding: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h2>待完成事项 todulist</h2>
+            <div class="input-group mb-3">
+                <input type="text" v-model="cons" @keyup.enter="addList()" class="form-control" placeholder="要完成的任务">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">
+                        <input v-model="endtime" type="date"
+                            style="border:0;outline:0;height: 20px;background: transparent;">
+                    </span>
+                    <button type="button" class="btn btn-success" @click="addList()">添加</button>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input v-model="checkall" type="checkbox" name="" id="">
+                            全选
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">待办事项</th>
+                        <th scope="col">预计完成事件</th>
+                        <th scope="col">是否完成</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in taskList" @click="select(index)">
+                        <th scope="row"><input type="checkbox" name="" id="" v-model="item.isSelected"></th>
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ item.msg }}</td>
+                        <td>{{ item.endtime }}</td>
+                        <td>{{ item.completed }}</td>
+                        <td>
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-success btn-sm"
+                                    @click.stop="change(index)">完成</button>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    @click.stop="remove(index)">删除</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+
+    (() => {
+        /*
+            任务清单需求：
+                -渲染任务列表
+                -点击添加按钮或按下回车键的时候可以提交新的任务
+                -点击完成，状态改成：是
+                -点击删除就可以删除某个任务
+                -点击全选可以完成全选，点击下面的复选框反作用于全选
+                    * 如果你只是想渲染数据，视图不会去修改的，单向
+                        * 设置data + {{}}
+                    * 渲染数据+ 视图发生改变，获取到改变的值,双向
+                        * 双向数据绑定  v-model  data ,影响别人  写一个函数：chage( this.total = this.num * 99;)
+                        * 计算属性   computer  msg ：m-v显示 getter  v-m获取：setter
+                        * 监听  watch  监听 msg： newval(v-m)  (m-v) data + {{msg}}
+                -点击tr也可以选中或取消该选项
+        */
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                taskList: [//默认的任务数据
+                    {
+                        id: 1,
+                        msg: '定个小目标，完成一个亿',
+                        completed: '否',//未完成
+                        isSelected: false,
+                        endtime: '2019-12-25'
+                    }
+                ],
+                cons: '', //输入任务可以获取到
+                endtime: ''
+            },
+
+            computed: {
+                checkall: {
+                    get() {
+                        //m-v  数据->视图
+                        // let istrue = true;
+                        // this.taskList.forEach(item => {
+                        //     if(!item.isSelected) {
+                        //         istrue = false;
+                        //     }
+                        // })
+                        // return istrue;
+
+                        //每一项都为真才为真,全部为真就是勾选完了，再全选
+                        let istrue = this.taskList.every(item => item.isSelected);
+                        // console.log(istrue);
+                        return istrue;
+                    },
+
+                    set(val) {
+                        //v-m 视图->数据
+                        // console.log(val);
+                        //全选控制下面所有
+                        this.taskList.forEach(item => {
+                            item.isSelected = val;
+                        });
+
+                    }
+
+
+                }
+            },
+
+            methods: {
+                addList() {
+                    //添加新的任务
+                    if (this.cons.trim()) {
+                        //非空才插入数据
+                        let con = {
+                            id: this.taskList.length + 1,
+                            msg: this.cons,
+                            completed: '否',//未完成
+                            isSelected: false,
+                            endtime: this.endtime
+                        }
+                        this.taskList.push(con);//新任务放在下面
+                    }
+
+                },
+                change(index) {
+                    //点击完成的时候，把状态改成 是
+                    // this.taskList.forEach((item, i) => {
+                    //     if (i == index) {
+                    //         item.completed = '是';
+                    //     }
+                    // });
+
+                    this.taskList[index].completed = '是';
+                },
+                remove(index) {
+                    //删除任务
+                    let isok = confirm('您确定要删除吗？');
+                    if (isok) {
+
+                        this.taskList.splice(index, 1);
+                    }
+                },
+                select(index) {
+                    this.taskList[index].isSelected = !this.taskList[index].isSelected;
+                }
+            }
+        });
+
+
+    })();
+
+</script>
+
+</html>

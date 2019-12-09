@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue初体验</title>
+</head>
+
+<body>
+    <!-- 设置好vue的作用范围，在里面运用vue做开发 -->
+    <div id="app">{{ msg }}</div>
+    <!-- <p>{{ name }}</p> -->
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//写的是一个选择器，el：查找元素，让这个元素能被Vue进行管理。不能写body和html标签
+        data: {
+            msg: '我们的第一个vue！hello world!',
+            name: '尤雨溪'
+        }
+    });
+
+    //旧的做法
+    // let app = document.querySelector('#app');
+    // app.innerHTML = 'hello';
+
+</script>
+
+</html>

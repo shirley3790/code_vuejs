@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MVVM</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 2.利用我们{{}}把data里面的数据渲染到视图层 -->
+        <p> {{ msg }} </p>
+        <!-- 3.用v-model实现双向数据绑定 -->
+        <input type="text" v-model="msg">
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+
+    /*
+        MVVM:双向数据绑定，原理是什么？
+            * M(model)->V(view) : 数据渲染到视图层
+                * 添加响应式属性
+            * V->M : 视图层数据变改变数据层
+                * 事件驱动
+            * VM: 控制层，vue实例
+    */
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'h5-1911' //1、把数据写在data
+        }
+    })
+</script>
+
+</html>

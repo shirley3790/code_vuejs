@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .bg {
+            background: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.添加类名 ：字符串 -->
+        <p class="red">红花会</p>
+
+        <!-- 2.添加字符串实现：添加属性名，通过键名取键值 -->
+        <p :class="color">蓝月亮</p>
+
+        <!-- 3.添加对象的方式：键值对，键：样式名  值：布尔值 true：应用该样式，false：不应用 -->
+        <p :class="{green : fontcl, bg : hasbg}">准备吃饭</p>
+
+        <!-- 4.直接添加多个类名 -->
+        <p :class="['red','bg']">准备吃饭</p>
+
+        <!-- 5.直接添加多个类名 -->
+        <p :class="style">准备吃饭</p>
+
+        <!-- 6.直接写行内样式style -->
+        <p :style="{color:color,fontSize:fsize}">直接写行内样式style</p>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            color: 'blue',
+            hasbg: true,
+            fontcl: true,
+            style: ['red', 'bg'],
+            fsize: '28px'
+        }
+    })
+</script>
+
+</html>

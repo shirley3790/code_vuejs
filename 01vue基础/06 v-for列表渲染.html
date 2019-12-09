@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1、v-for遍历数组</h2>
+        <ul>
+            <!-- item:数组的每一项内容 index：数组下标 -->
+            <li v-for="(item, index) in person">{{ index + 1 }}.姓名：{{ item.name }} 工资：{{ item.salary }}</li>
+        </ul>
+
+        <h2>2.v-for遍历对象</h2>
+        <ul>
+            <li v-for="(value,key,index) in good">
+                <p>属性是：{{ key }} , 属性值：{{ value }} - {{ index }}</p>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            person: [
+                { name: '马云', salary: 2000 },
+                { name: '刘强东', salary: 4000 },
+                { name: '马化腾', salary: 60000 }
+            ],
+            good: {
+                id: 12,
+                title: '华为',
+                price: 8999
+            }
+        }
+    })
+</script>
+
+</html>

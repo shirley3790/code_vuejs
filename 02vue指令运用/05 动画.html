@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <style>
+        /*显示前或隐藏后的效果*/
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0
+                /*都是隐藏效果*/
+        }
+
+        /*显示或隐藏的过渡效果*/
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 1s;
+            /*过渡，渐变效果 1秒*/
+        }
+
+        /*显示过渡效果*/
+        .meng-enter-active {
+            transition: all 1s;
+            /*all 所有效果，持续1秒 */
+        }
+
+        /*隐藏过渡效果*/
+        .meng-leave-active {
+            transition: all 5s;
+        }
+
+        /*显示前或隐藏后的效果*/
+        .meng-enter,
+        .meng-leave-to {
+            opacity: 0;
+            /*都是隐藏效果*/
+            transform: translateX(10px);
+            /*水平方向 X 坐标移动10px*/
+        }
+
+        .bounce-enter-active {
+            animation: bounce-in .5s;
+        }
+
+        .bounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 点击显示和隐藏 -->
+        <!-- <input @click="istrue = !istrue" type="button" value="点击">
+        <p v-show="istrue">我是内容</p> -->
+
+        <!-- 有过渡效果的显示隐藏 -->
+        <!-- <input @click="istrue = !istrue" type="button" value="点击">
+        <transition name='fade'>
+            <p v-show="istrue">我是内容</p>
+        </transition> -->
+
+        <!-- 有过渡效果的显示隐藏 -->
+        <!-- <input @click="istrue = !istrue" type="button" value="点击">
+        <transition name='meng'>
+            <p v-show="istrue">我是内容</p>
+        </transition> -->
+
+        <!-- 有过渡效果的显示隐藏 -->
+        <input @click="istrue = !istrue" type="button" value="点击">
+        <transition name='bounce'>
+            <p v-show="istrue">我是内容</p>
+        </transition>
+
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            istrue: true
+        }
+    })
+</script>
+
+</html>

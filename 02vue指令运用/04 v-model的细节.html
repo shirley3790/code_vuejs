@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <form action="#" @submit.prevent="send()"> -->
+        <form action="#">
+            姓名(文本)：<input type="text">
+            <br><br>
+            性别(单选按钮)：
+            <input name="sex" type="radio" value="1" v-model="sex" />男
+            <input name="sex" type="radio" value="0" v-model="sex" />女
+            <br><br>
+            技能(多选框)：
+            <input type="checkbox" name="skills" value="java" v-model="likes">Java开发
+            <input type="checkbox" name="skills" value="vue" v-model="likes">Vue.js开发
+            <input type="checkbox" name="skills" value="python" v-model="likes">Python开发
+            <br><br>
+            城市(下拉框)：
+            <!-- 这里记得要获取下拉的value值，记得写在select -->
+            <select name="citys" v-model="city">
+                <option v-for="(item, index) in citys" :value="item.code">{{ item.name }}</option>
+            </select>
+            <br><br>
+            说明(多行文本)：<textarea v-model="texts" cols="30" rows="5"></textarea>
+            <br><br>
+            <!-- <button type="submit">提交</button> -->
+            <button type="button" @click="send()">提交</button>
+        </form>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        //默认的数据渲染
+        data: {
+            sex: 0,
+            likes: ['java', 'vue'],
+            citys: [ //初始化下拉框
+                { code: 'bj', name: '北京' },
+                { code: 'sh', name: '上海' },
+                { code: 'sz', name: '深圳' },
+                { code: 'gz', name: '广州' }
+            ],
+            city: 'gz', //设置默认值
+            texts: ''
+        },
+
+        methods: {
+            send() {
+                //获取数据并发送请求，ajax请求
+                console.log('sex：' + this.sex);
+                console.log('likes' + this.likes);
+                console.log('city' + this.city);
+                console.log('texts' + this.texts);
+            }
+        }
+    })
+</script>
+
+</html>

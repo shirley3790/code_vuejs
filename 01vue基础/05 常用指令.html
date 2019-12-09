@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05 常用指令</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1、双花括号{{}}数据绑定</h2>
+        <p>{{ msg }}</p>
+        <p>{{ num + 1 }}</p>
+
+
+        <h2>2.v-once 绑定节点，数据就不能再改变</h2>
+        <p v-once>{{ msg }}</p>
+
+        <h2>3.v-html绑定含有标签的元素，数据可以渲染出来 innerHTML</h2>
+        <P>{{ str }}</P>
+        <p v-html="str"></p>
+
+        <!-- 
+            v-html:
+                * 用{{}}不能渲染节点
+                * v-html可以渲染节点的同时，还可以防止xss攻击
+
+         -->
+        <h2>4.v-bind绑定属性值</h2>
+        <img v-bind:src="url" alt="">
+        <img :src="url" alt="">
+
+        <h2>5.v-on 绑定按钮，控制数量的变化</h2>
+        <p>单价：{{ price }}</p>
+        <input type="button" value="减一" v-on:click="cut">
+        <input type="text" :value="num">
+        <input type="button" value="加一" @click="add">
+        <p>小计：{{ num * price }}</p>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {//存放数据
+            msg: '今天周三，准备组队做项目。',
+            str: `<span style="color:#58bc58"><script>alert('出来')<\/script>
+老姚最帅</span>`,
+            url: 'https://vuejs.org/images/logo.png',
+            num: 10,
+            price: 99,
+            total: 0
+        },
+        methods: {//存放方法
+            add() {
+                this.num++;
+            },
+            cut() {
+                this.num--;
+            }
+        }
+    });
+</script>
+
+</html>

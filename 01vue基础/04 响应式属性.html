@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>属性的特性</title>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}
+    </div>
+
+</body>
+<!-- <script src="../vue.js"></script> -->
+<script>
+    /*
+        * 修改属性特性：
+            Object.defineProperty(target,prop,descriptor)
+                * taget: 目标对象 data
+                * prop: 目标对象的属性 age
+                * descriptor： 属性特性
+                    * configurable  可配置型    Boolean     控制writable&enumerable的开关
+                    * enumerable    可枚举性    Boolean
+                    * writable      可写性      Boolean
+                    * value         值          Any
+
+        * 查看属性特性：
+            Object.getOwnpropertyDescriptor(data,prop)
+
+        * 属性分类：
+            * 值属性：（有值的属性）
+                * configurable  可配置型    Boolean     控制writable&enumerable的开关
+                * enumerable    可枚举性    Boolean
+                * writable      可写性      Boolean
+                * value         值          Any
+            * 没有值的属性：响应式属性
+                * configurable
+                * enumerable
+                * get
+                * set    
+        
+        结论：vue实现MVVM就是通过给属性添加响应式属性，让我们能在视图修改数据层：
+            * M-v： 数据可写，渲染到视图层
+            * v-M:  属性都是响应式属性，外部可以修改内部的属性的值
+            * vm：就是帮我们实现上面两个功能
+    */
+
+    let data = {
+        name: 'h5-1911',
+        age: 28
+    }
+
+    // Object.defineProperty(data, 'firstname', {
+    //     get() {
+    //         return '千锋'; //获取到内容给 firstname属性
+    //     },
+    //     set(val) {
+    //         // console.log(val + '测试');
+    //         this.firstname = val;
+    //     }
+    // });
+
+    Object.defineProperty(data, 'firstName', {
+
+        // 读取属性时，执行get函数中的代码
+        get() {
+            let arr = this.name.split('-')
+            return arr[0]
+        },
+        // 设置属性时，执行set函数中的代码，并传入修改的值
+        set(val) {
+            let arr = this.name.split('-')
+            arr[0] = val;
+            this.name = arr.join('-');
+        }
+    })
+
+
+    // console.log(data.firstname);
+
+    // 实例化
+    // let vm = new Vue({
+    //     el: '#app',
+    //     data: data
+    // })
+
+
+    /*
+        M->V:把对象里面的属性都改成可写的，内部渲染到节点上
+        V-M:
+
+    */
+
+
+</script>
+
+</html>

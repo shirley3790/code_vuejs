@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this的指向：选项卡</title>
+    <style>
+        .active {
+            background: pink;
+        }
+
+        #list div {
+            width: 400px;
+            height: 200px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="css/css.css">
+    <!-- <script src="js/js1.js"></script>
+    <script>
+        window.onload = function () {
+            //window.onload 页面加载完毕再执行这里的代码，延迟执行时间，就不会找不到节点了
+            console.log(999);
+            var num = 666;//局部变量的声明
+            var title = document.getElementById('title');
+            title.onclick = function () {
+                console.log(123);
+            }
+        }
+    </script> -->
+</head>
+
+<body>
+    <h1 id="title">this的指向</h1>
+    <div id="list">
+        <input type="button" class="active" value="新闻">
+        <input type="button" value="体育">
+        <input type="button" value="娱乐">
+        <input type="button" value="财经">
+        <div class="con" style="display: block">新闻</div>
+        <div class="con">体育</div>
+        <div class="con">娱乐</div>
+        <div class="con">财经</div>
+    </div>
+</body>
+<!-- <script src="js/js1.js"></script> -->
+<script>
+    //js代码可以嵌入在html的任意地方，css必须写在head里面
+
+    //尽量少用全局变量，因为会占用内存不释放
+    /*
+        自调用：声明马上调用
+            * 把所有的变量变成局部变量，用完就会自动释放内存
+            * 把代码写在body下面，提高我们的页面性能，防止页面空白
+        
+        添加类名：
+            * 节点名.className = '类名'
+    */
+
+    (function () {
+        var list = document.getElementById('list');
+        var btns = list.getElementsByTagName('input');
+        var cons = list.getElementsByClassName('con');//通过类名查找
+        // console.log(cons.length);
+
+        for (var i = 0; i < btns.length; i++) {
+            // console.log(i);
+            //绑定索引
+            btns[i].index = i;//因为不能再用i来确定下标，只能自己手动添加记号
+            btns[i].onclick = function () {
+                //排他
+                for (var j = 0; j < btns.length; j++) {
+                    btns[j].className = '';
+                    cons[j].style.display = 'none';
+                }
+                this.className = 'active';//添加类名
+                // console.log(i);//循环已经结束了，手速太慢
+                console.log(this.index);
+                cons[this.index].style.display = 'block';
+            }
+        }
+
+        // console.log(i);
+    })();
+</script>
+
+</html>
