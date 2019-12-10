@@ -24,7 +24,7 @@
     <template id="todolist">
         <div class="container">
             <!-- 在这里引入子组件 -->
-            <todo-form :tasklist="taskList" :cons="cons" :endtime="endtime" :addlist="addList"></todo-form>
+            <todo-form :tasklist="taskList" :addlist="addList"></todo-form>
             <todo-content :tasklist="taskList"></todo-content>
         </div>
     </template>
@@ -32,9 +32,9 @@
     <!-- todofrom代码 -->
     <template id="todoform">
         <div>
-            <h2>待完成事项 todulist</h2>
+            <h2>待完成事项 todolist</h2>
             <div class="input-group mb-3">
-                <input type="text" v-model.trim="cons" @keyup.enter="additem()" class="form-control"
+                <input type="text" v-model.trim="cons" ref="keywords" @keyup.enter="additem()" class="form-control"
                     placeholder="要完成的任务" autofocus>
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">
@@ -102,7 +102,13 @@
         //三个子组件
         let todoForm = {
             template: '#todoform',
-            props: ['endtime', 'cons', 'addlist', 'tasklist'],
+            props: ['addlist', 'tasklist'],
+            data: function () {
+                return {
+                    cons: '', //输入任务可以获取到
+                    endtime: ''
+                }
+            },
             methods: {
                 additem() {
                     //如果不为空就插入数据
@@ -115,6 +121,9 @@
                             endtime: this.endtime
                         }
                         this.addlist(con);
+                        //清空数据并聚焦
+                        this.cons = '';
+                        this.$refs.keywords.focus();
                     }
                 }
             }
@@ -179,9 +188,8 @@
                             isSelected: false,
                             endtime: '2019-12-25'
                         }
-                    ],
-                    cons: '', //输入任务可以获取到
-                    endtime: ''
+                    ]
+
                 }
             },
             components: {
