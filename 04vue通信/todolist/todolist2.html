@@ -25,7 +25,7 @@
         <div class="container">
             <!-- 在这里引入子组件 -->
             <todo-form :tasklist="taskList" :addlist="addList"></todo-form>
-            <todo-content :tasklist="taskList"></todo-content>
+            <todo-content :tasklist="taskList" :change="change" :remove="remove" :select="select"></todo-content>
         </div>
     </template>
 
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     <tr is="todo-item" v-for="(item, index) in tasklist" :key="item.id" :item="item" :index="index"
-                        @click="select(index)">
+                        :change="change" :remove="remove" :select="select">
                     </tr>
                 </tbody>
             </table>
@@ -77,7 +77,7 @@
 
     <!-- todoitem的内容 -->
     <template id="todoitem">
-        <tr>
+        <tr @click="selectitem()">
             <th scope="row"><input type="checkbox" name="" id="" v-model="item.isSelected"></th>
             <td>{{ index + 1 }}</td>
             <td>{{ item.msg }}</td>
@@ -85,8 +85,8 @@
             <td>{{ item.completed }}</td>
             <td>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-success btn-sm" @click.stop.once="change(index)">完成</button>
-                    <button type="button" class="btn btn-danger btn-sm" @click.stop="remove(index)">删除</button>
+                    <button type="button" class="btn btn-success btn-sm" @click.stop.once="complete()">完成</button>
+                    <button type="button" class="btn btn-danger btn-sm" @click.stop="removeitem()">删除</button>
                 </div>
             </td>
         </tr>
@@ -128,23 +128,29 @@
 
         let todoItem = {
             template: '#todoitem',
-            props: ['item', 'index']
+            props: ['item', 'index', 'change', 'remove', , 'select'],
+            methods: {
+                complete() {
+                    console.log(666)
+                    this.change(this.index);
+                },
+                removeitem() {
+                    console.log(666888)
+                    this.remove(this.index);
+                },
+                selectitem() {
+                    console.log(999);
+                    this.select(this.index);
+                }
+            }
         }
 
         let todoContent = {
             template: '#todocontent',
-            props: ['tasklist'],
+            props: ['tasklist', 'change', 'remove', 'select'],
             computed: {
                 checkall: {
                     get() {
-                        //m-v  数据->视图
-                        // let istrue = true;
-                        // this.taskList.forEach(item => {
-                        //     if(!item.isSelected) {
-                        //         istrue = false;
-                        //     }
-                        // })
-                        // return istrue;
 
                         //每一项都为真才为真,全部为真就是勾选完了，再全选
                         let istrue = this.tasklist.every(item => item.isSelected);
@@ -161,12 +167,13 @@
                         });
 
                     }
-
-
                 }
             },
             components: {
                 todoItem
+            },
+            methods: {
+
             }
         }
 
@@ -207,13 +214,6 @@
 
                 },
                 change(index) {
-                    //点击完成的时候，把状态改成 是
-                    // this.taskList.forEach((item, i) => {
-                    //     if (i == index) {
-                    //         item.completed = '是';
-                    //     }
-                    // });
-
                     this.taskList[index].completed = '是';
                 },
                 remove(index) {
