@@ -1,0 +1,4 @@
+
+1.boostrap 组件化+组件通信
+
+2.todoList或todoMVC 组件化+组件通信
