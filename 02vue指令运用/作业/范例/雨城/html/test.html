@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <style type="text/css">
+        li {
+            list-style: none;
+            clear: both;
+            width: 800px;
+        }
+
+        ul li p {
+            float: left;
+            margin: 10px;
+        }
+
+        ul li p span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #d8d8d8;
+            cursor: pointer;
+            text-align: center;
+            line-height: 20px;
+            user-select: none;
+        }
+
+        ul li p span::selection {
+            background: transparent;
+        }
+
+        div {
+            clear: both;
+            margin-left: 40px;
+        }
+
+        div p {
+            float: left;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li>
+                <p><input type="checkbox" name="" id="" value="" /></p>
+                <p>商品</p>
+                <p style="padding-left: 20px;">单价</p>
+                <p style="padding-left: 100px;">数量</p>
+                <p style="padding-left: 120px;">小计</p>
+                <p style="padding-left: 10px;">操作</p>
+            </li>
+            <li class="goods" v-for="(item,index) in goods" v-if="item.isok">
+                <p class="good_check"><input type="checkbox" name="good" :value="index" v-model=" checked" /></p>
+                <p class="good_name">{{item.name}}</p>
+                <p class="good_price">￥&nbsp;{{item.price}}</p>
+                <p class="num">
+                    <span class="cutnum" @click="item.num > 1 ?item.num-- : item.num">-</span>
+                    <input class="nownum" type="text" :value="item.num" />
+                    <span class="addnum" @click="item.num < item.all ?item.num++ : item.all">+</span>
+                </p>
+                <p>库存量：{{item.all}}件</p>
+                <p class="good_total">￥&nbsp;{{item.price * item.num}}</p>
+                <p class="good_del">
+                    <a href="javascript:;" @click='del(index)'>删除</a>
+                </p>
+            </li>
+        </ul>
+        <div id="del">
+            <p id="allchecked"><input type="checkbox" name="" id="" value="" />全选</p>
+            <p id="delall">
+                <a href="javascript:;">删除</a>
+            </p>
+            <p id="allnum">已选{{count.allnum}}件商品</p>
+            <p id="totalprice">总计（不含运费）：￥{{count.total}}</p>
+        </div>
+    </div>
+</body>
+<script src="../../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            goods: [{
+                num: 1,
+                name: '华为',
+                price: 8999,
+                all: 10,
+                isok: true
+            }, {
+                num: 1,
+                name: '苹果',
+                price: 19999,
+                all: 5,
+                isok: true
+            }, {
+                num: 1,
+                name: '小米',
+                price: 1999,
+                all: 4,
+                isok: true
+            }, {
+                num: 1,
+                name: 'vivo',
+                price: 5999,
+                all: 8,
+                isok: true
+            }],
+            checked: []
+        },
+        methods: {
+            // add(idx) {
+            //     // let inum = this._data.goods[idx].num;
+            //     if (this._data.goods[idx].num == this._data.goods[idx].all) return;
+            //     this._data.goods[idx].num++;
+            //     // console.log(this._data.goods[idx].num);
+            // },
+            // cut(idx) {
+            //     // let inum = this._data.goods[idx].num;
+            //     if (this._data.goods[idx].num == 1) return;
+            //     this._data.goods[idx].num--;
+            // },
+            del(idx) { //方法一：通过开关控制每行的删除
+                this._data.goods[idx].isok = false;
+                this.checked.forEach((item, index) => {
+                    if (item == idx) {
+                        this.checked.splice(index, 1);
+                    }
+                })
+            }
+
+            // del(idx) { //方法二：事件委托
+            //     // console.log(this);
+            //     this.$el.removeChild(event.target.parentNode.parentNode);
+
+
+            // }
+
+        },
+        computed: {
+            count: function () {
+                console.log(this);
+
+                let allnum = 0;
+                let total = 0;
+                this.checked.forEach((item, index) => {
+                    allnum += this.goods[item].num;
+                    total += this.goods[item].num * this.goods[item].price;
+                });
+                return {
+                    allnum,
+                    total
+                }
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>menu</title>
+    <style>
+        #con {
+            width: 100px;
+            height: 100px;
+            background: #58bc58;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="点击" @click='istrue = !istrue'>
+        <div id="con" v-if='istrue'></div>
+    </div>
+</body>
+<script src="../../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            istrue: false
+        }
+    })
+</script>
+
+</html>

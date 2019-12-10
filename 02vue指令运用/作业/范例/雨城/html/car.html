@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>car</title>
+    <style>
+        .box {
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        .box div {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for='(item,index) in goods' class="box">
+            <div>商品名字：{{item.name}}</div>
+            <div>单价：{{item.price}}</div>
+            <input type="button" value="-" @click='cut(index)'>
+            <input type="text" :value="item.num">
+            <input type="button" value="+" @click='add(index)'>
+            <div>库存量：{{item.all}}</div>
+            <div>总价：{{item.price * item.num}}</div>
+        </div>
+    </div>
+</body>
+<script src="../../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            goods: [{
+                num: 1,
+                name: '华为',
+                price: 8999,
+                all: 10
+            }, {
+                num: 1,
+                name: '苹果',
+                price: 19999,
+                all: 5
+            }, {
+                num: 1,
+                name: '小米',
+                price: 1999,
+                all: 4
+            }, {
+                num: 1,
+                name: 'vivo',
+                price: 5999,
+                all: 8
+            }]
+        },
+        methods: {
+            add(idx) {
+                // let inum = this._data.goods[idx].num;
+                if (this._data.goods[idx].num == this._data.goods[idx].all) return;
+                this._data.goods[idx].num++;
+                // console.log(this._data.goods[idx].num);
+            },
+            cut(idx) {
+                // let inum = this._data.goods[idx].num;
+                if (this._data.goods[idx].num == 1) return;
+                this._data.goods[idx].num--;
+            }
+        }
+    })
+</script>
+
+</html>

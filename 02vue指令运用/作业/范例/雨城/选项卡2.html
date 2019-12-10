@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 设置整个页面样式*/
+        #box {
+            width: 280px;
+            height: 340px;
+            border: 1px solid #eee;
+        }
+
+        /* 设置头部盒子大小*/
+        .box1 {
+            width: 100%;
+            height: 42px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        /* 隐藏多余新闻 */
+        .list {
+            display: none;
+        }
+
+        /* 设置按钮的样式 */
+        input {
+            padding: 0;
+            background: #fff;
+            border: none;
+            font-size: 16px;
+            line-height: 40px;
+            transform: translateY(-1px);
+            border-top: 1px solid #eee;
+            outline: none;
+        }
+
+        .img {
+            width: 278px;
+            height: 110px;
+            margin-bottom: 20px;
+        }
+
+        /* 设置图片位置和大小 */
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 文本样式 */
+        p {
+            font-size: 12px;
+            line-height: 12px;
+            color: #333;
+            margin: 0 0 15px 16px;
+        }
+
+        .bag {
+            border-top: 2px solid #0aa770;
+            color: #0aa770;
+        }
+
+        /* 预设作用后样式，方便调用 */
+        .dip {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="box1">
+            <input type="button" v-for="(item,index) in digi" :value="item.title" :class="{bag:item.isok}"
+                @click="sec(index)">
+            <!-- <input type="button" value="社会">
+            <input type="button" value="娱乐">
+            <input type="button" value="生活">
+            <input type="button" value="体育"> -->
+        </div>
+        <div v-for="(item,index) in digi" :class="{list:true,dip:item.isok}">
+            <div class="img">
+                <img src="./images/list1.gif" alt="">
+            </div>
+            <p v-for="item in item.con">{{item}}</p>
+            <!-- <p>iPhone11大功臣被苹果雪藏十几年</p>
+            <p>沿着中国特色强军之路阔步前进 </p>
+            <p>内地95后登广告邀香港青年看阅兵</p>
+            <p>美国犯外交圈大忌 俄站出来说话了</p>
+            <p>"节目单"来了 今到十一天天有亮点</p> -->
+        </div>
+        <!-- <div class="list">
+            <div class="img">
+                <img src="./images/list3.gif" alt="">
+            </div>
+            <p>看到别人结婚 这7名男子围了上去</p>
+            <p>爸带女儿喝喜酒 次日从朋友圈发现娃丢 </p>
+            <p>院长开学发言稿长到拖地？校方回应</p>
+            <p>小哥俩罕见异瞳 网友点赞老爸却担忧 </p>
+            <p>打车落下花生油送回要数百元 滴滴回应</p>
+            <p>全球"人造肉"市场规模今年达120亿美元</p>
+        </div>
+        <div class="list">
+            <div class="img">
+                <img src="./images/list4.png" alt="">
+            </div>
+            <p>新剧半个娱乐圈帮忙宣传!他什么来头</p>
+            <p>肖战成立个人工作室 这是解约成功了?</p>
+            <p>李亚鹏生日冷清 新女友和王菲均未现身</p>
+            <p>女星出道前生活艰难 一天只花30元钱</p>
+            <p>李安指定黄渤合作喜剧? 期待强强联手 </p>
+            <p>唱出心声：国是心中国 心是中国心!</p>
+        </div>
+        <div class="list">
+            <div class="img">
+                <img src="./images/list1.gif" alt="">
+            </div>
+            <p>方便面含有致癌物质？两月排不出？</p>
+            <p>大学生走路玩手机，撞掉雕塑的头！</p>
+            <p>吃饭时到底能不能喝水？争议了这么多</p>
+            <p>睡觉是硬床好还是软床好?这些年都错了</p>
+            <p>多位明星曾代言，这款隐形眼镜出问题</p>
+            <p>大爷用麻袋去银行扛了200万现金？</p>
+        </div>
+        <div class="list">
+            <div class="img">
+                <img src="./images/list2.jpg" alt="">
+            </div>
+            <p>中国女排十连胜 成功提前锁定冠军！</p>
+            <p>和科比对骂 不愿联手詹姆斯？翻篇了</p>
+            <p>最好战绩！中国举重军团卷走一半金牌</p>
+            <p>广东队三连败输41分！主教练却笑了</p>
+            <p>遗憾 苏炳添谢震业双双无缘百米决赛</p>
+            <p>林书豪随首钢抵达长春 在机场被热捧</p>
+        </div> -->
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    (function () {
+
+        /*
+            需求：实现选项卡
+                * 找到所有的按钮绑定点击事件，点击的时候切换当前按钮的高亮样式(排他)
+                * 按钮切换了，下面的内容跟着切换
+        */
+        const vm = new Vue({
+            el: '#box',
+            data: {
+                digi: [{
+                        title: '精选',
+                        con: ['毕业2年薪资即上万 男护士有多抢手？', 'iPhone11大功臣被苹果雪藏十几年', '沿着中国特色强军之路阔步前进',
+                            '内地95后登广告邀香港青年看阅兵'
+                        ],
+                        isok: true
+                    },
+                    {
+                        title: '社会',
+                        con: ['看到别人结婚 这7名男子围了上去', '爸带女儿喝喜酒 次日从朋友圈发现娃丢', '院长开学发言稿长到拖地？校方回应',
+                            '小哥俩罕见异瞳 网友点赞老爸却担忧'
+                        ],
+                        isok: false
+                    },
+                    {
+                        title: '娱乐',
+                        con: ['新剧半个娱乐圈帮忙宣传!他什么来头', '肖战成立个人工作室 这是解约成功了?', '李亚鹏生日冷清 新女友和王菲均未现身',
+                            '女星出道前生活艰难 一天只花30元钱'
+                        ],
+                        isok: false
+                    },
+                    {
+                        title: '生活',
+                        con: ['方便面含有致癌物质？两月排不出？', '大学生走路玩手机，撞掉雕塑的头！', '吃饭时到底能不能喝水？争议了这么多',
+                            '睡觉是硬床好还是软床好?这些年都错了'
+                        ]
+                    },
+                    {
+                        title: '体育',
+                        con: ['中国女排十连胜 成功提前锁定冠军！', '和科比对骂 不愿联手詹姆斯？翻篇了', '最好战绩！中国举重军团卷走一半金牌',
+                            '广东队三连败输41分！主教练却笑了'
+                        ],
+                        isok: false
+                    }
+                ],
+                sel: '精选'
+            },
+            methods: {
+                sec(idx) {
+                    this.digi[idx].title = this.sel;
+                    this.digi.forEach(item => item.isok = false);
+                    this.digi[idx].isok = true;
+                }
+            }
+        })
+
+    })();
+</script>
+
+</html>

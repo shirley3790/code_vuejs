@@ -35,15 +35,19 @@
 		update: function (el, binding) {//在双击的时候，已经更新了表单的value值
 			el.focus();
 		}
-	})
+	});
 
+	let list = [];
+	if (saveSorage.fetch()) {//如果本地存储里面有数据就用本地存储的数据，否则就是空数组
+		list = JSON.parse(saveSorage.fetch());
+	}
 
 	let vm = new Vue({
 		//vue管理对象
 		el: '#todoapp',
 		//数据
 		data: {
-			taskList: JSON.parse(saveSorage.fetch()),
+			taskList: list,
 			msg: '',
 			ok: false,
 			currentIndex: '', //存储双击选项对应索引
