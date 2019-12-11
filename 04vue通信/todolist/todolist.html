@@ -25,7 +25,7 @@
         <div class="container">
             <!-- 在这里引入子组件 -->
             <todo-form :tasklist="taskList" :addlist="addList"></todo-form>
-            <todo-content :tasklist="taskList"></todo-content>
+            <todo-content :tasklist="taskList" :change="change" :remove="remove" :select="select"></todo-content>
         </div>
     </template>
 
@@ -66,8 +66,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr is="todo-item" v-for="(item, index) in tasklist" :key="item.id" :item="item" :index="index"
-                        @click="select(index)">
+                    <tr :change="change" :remove="remove" is="todo-item" v-for="(item, index) in tasklist"
+                        :key="item.id" :item="item" :index="index" :select="select">
                     </tr>
                 </tbody>
             </table>
@@ -77,7 +77,7 @@
 
     <!-- todoitem的内容 -->
     <template id="todoitem">
-        <tr>
+        <tr @click="selectitem(index)">
             <th scope="row"><input type="checkbox" name="" id="" v-model="item.isSelected"></th>
             <td>{{ index + 1 }}</td>
             <td>{{ item.msg }}</td>
@@ -85,8 +85,8 @@
             <td>{{ item.completed }}</td>
             <td>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-success btn-sm" @click.stop.once="change(index)">完成</button>
-                    <button type="button" class="btn btn-danger btn-sm" @click.stop="remove(index)">删除</button>
+                    <button type="button" class="btn btn-success btn-sm" @click.stop.once="changeitem()">完成</button>
+                    <button type="button" class="btn btn-danger btn-sm" @click.stop="removeitem()">删除</button>
                 </div>
             </td>
         </tr>
@@ -117,7 +117,7 @@
                             isSelected: false,
                             endtime: this.endtime
                         }
-                        this.addlist(con);
+                        this.addlist(con);//子组件向父组件传数据,实参
                         //清空数据并聚焦
                         this.cons = '';
                         this.$refs.keywords.focus();
@@ -128,26 +128,32 @@
 
         let todoItem = {
             template: '#todoitem',
-            props: ['item', 'index']
+            props: ['item', 'index', 'remove', 'change', 'select'],
+            methods: {
+                changeitem() {
+                    this.change(this.index);
+                },
+                removeitem() {
+                    this.remove(this.index);
+                },
+                selectitem() {
+                    this.select(this.index);
+                }
+            }
         }
 
         let todoContent = {
             template: '#todocontent',
-            props: ['tasklist'],
+            props: ['tasklist', 'remove', 'change', 'select'],
             computed: {
                 checkall: {
                     get() {
-                        //m-v  数据->视图
-                        // let istrue = true;
-                        // this.taskList.forEach(item => {
-                        //     if(!item.isSelected) {
-                        //         istrue = false;
-                        //     }
-                        // })
-                        // return istrue;
 
                         //每一项都为真才为真,全部为真就是勾选完了，再全选
-                        let istrue = this.tasklist.every(item => item.isSelected);
+                        let istrue = false;
+                        if (this.tasklist.length) {//有数据，就判断任务是否都勾选
+                            istrue = this.tasklist.every(item => item.isSelected);
+                        }
                         // console.log(istrue);
                         return istrue;
                     },
@@ -186,7 +192,6 @@
                             endtime: '2019-12-25'
                         }
                     ]
-
                 }
             },
             components: {
@@ -194,26 +199,20 @@
                 todoContent
             },
             methods: {
-                addList(con) {
+                addList(con) {//父组件，形参
                     //添加新的任务
 
                     //非空才插入数据
                     this.taskList.push(con); //新任务放在下面
                     //清空数据并聚焦
-                    this.cons = '';
+                    // this.cons = '';
                     //js给节点绑定 节点.focus()  在节点上面绑定属性：autofucus也可以聚焦，但是在一些浏览器会失效 移动端苹果浏览器失效 safari
                     // this.$refs.taskele.focus();
 
 
                 },
                 change(index) {
-                    //点击完成的时候，把状态改成 是
-                    // this.taskList.forEach((item, i) => {
-                    //     if (i == index) {
-                    //         item.completed = '是';
-                    //     }
-                    // });
-
+                    //完成任务
                     this.taskList[index].completed = '是';
                 },
                 remove(index) {

@@ -16,12 +16,12 @@
       </thead>
       <tbody>
         <TodoItem
+          :change="change"
+          :remove="remove"
           v-for="(item, index) in tasklist"
           :key="item.id"
           :item="item"
           :index="index"
-          :change="change"
-          :remove="remove"
           :select="select"
         ></TodoItem>
       </tbody>
@@ -30,13 +30,18 @@
 </template>
 <script>
 import TodoItem from "./TodoItem";
+
 export default {
-  props: ["tasklist", "change", "remove", "select"],
+  props: ["tasklist", "remove", "change", "select"],
   computed: {
     checkall: {
       get() {
         //每一项都为真才为真,全部为真就是勾选完了，再全选
-        let istrue = this.tasklist.every(item => item.isSelected);
+        let istrue = false;
+        if (this.tasklist.length) {
+          //有数据，就判断任务是否都勾选
+          istrue = this.tasklist.every(item => item.isSelected);
+        }
         // console.log(istrue);
         return istrue;
       },

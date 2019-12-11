@@ -44,7 +44,7 @@ export default {
           isSelected: false,
           endtime: this.endtime
         };
-        this.addlist(con);
+        this.addlist(con); //子组件向父组件传数据,实参
         //清空数据并聚焦
         this.cons = "";
         this.$refs.keywords.focus();

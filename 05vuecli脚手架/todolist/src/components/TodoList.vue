@@ -6,9 +6,10 @@
   </div>
 </template>
 <script>
-import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 import TodoForm from "./TodoForm";
 import TodoContent from "./TodoContent";
+import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+import Bus from "../bus.js";
 
 export default {
   data: function() {
@@ -31,16 +32,18 @@ export default {
   },
   methods: {
     addList(con) {
+      //父组件，形参
       //添加新的任务
 
       //非空才插入数据
       this.taskList.push(con); //新任务放在下面
       //清空数据并聚焦
-      this.cons = "";
+      // this.cons = '';
       //js给节点绑定 节点.focus()  在节点上面绑定属性：autofucus也可以聚焦，但是在一些浏览器会失效 移动端苹果浏览器失效 safari
       // this.$refs.taskele.focus();
     },
     change(index) {
+      //完成任务
       this.taskList[index].completed = "是";
     },
     remove(index) {
@@ -53,8 +56,14 @@ export default {
     select(index) {
       this.taskList[index].isSelected = !this.taskList[index].isSelected;
     }
+  },
+
+  mounted() {
+    //初始化实例的时候
+    //利用bus总线，绑定事件：数据接收方，去子组件触发事件：发送数据方
+    Bus.$on("changeitem", this.change);
+    Bus.$on("removeitem", this.remove);
+    Bus.$on("selectitem", this.select);
   }
 };
 </script>
-<style scoped>
-</style>

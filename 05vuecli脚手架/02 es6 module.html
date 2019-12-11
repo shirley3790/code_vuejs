@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // let obj = {
+    //     name: '婧婧',
+    //     show: function () {
+    //         console.log('我是' + this.name);
+    //     }
+    // }
+</script>
+<!-- <script src="js/myfns.js" type="text/javascript"></script> -->
+<script type="module">
+    /*
+        如何使用ES6 module:
+            * 在script写上type="module"
+            * 导出模块：xxx.js  export default {}
+            * 要用服务器打开 xx.html(安装第三方模块 http-server)
+            * 导入模块：import hello from './module/xxx.js';
+    */
+
+    //导出某个模块  {模块的名字}
+    import { show, aobj as obj } from './js/mymodule.js';
+
+    //导出全部
+    import * as all from './js/mymodule.js';
+
+    //导入默认的模块(常用的方式)
+    import fn from './js/mymodule.js';
+
+    // console.log(aobj.show());
+    console.log(show());
+    // console.log(aobj);
+    console.log(obj);
+    console.log(all);
+    console.log(all.show());
+    console.log(all.aobj.name);
+    console.log(fn);
+</script>
+
+</html>
