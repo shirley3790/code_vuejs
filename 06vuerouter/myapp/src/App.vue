@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 6.在组件中使用 -->
     <ul>
-      <li v-for="(item, index) in tags" :key="item.name" @click="change(index)">
+      <li v-for="(item, index) in tags" :key="item.name">
         <router-link :to="item.path">{{ item.text }}</router-link>
       </li>
     </ul>
@@ -16,7 +16,7 @@ export default {
   name: "app",
   data: function() {
     return {
-      currentpage: "/reg",
+      
       tags: [
         {
           name: "home",
