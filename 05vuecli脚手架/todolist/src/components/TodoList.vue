@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <!-- 在这里引入子组件 -->
-    <TodoForm :tasklist="taskList" :addlist="addList"></TodoForm>
+    {{doc}}
+    <TodoForm :tasklist="taskList" :addlist="addList" v-bind:title.sync="doc"></TodoForm>
     <TodoContent :tasklist="taskList" :change="change" :remove="remove" :select="select"></TodoContent>
   </div>
 </template>
@@ -14,6 +15,7 @@ import Bus from "../bus.js";
 export default {
   data: function() {
     return {
+      doc: 0,
       taskList: [
         //默认的任务数据
         {

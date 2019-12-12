@@ -7,7 +7,7 @@
     <SearchName :typeText="citys">
       <!-- 插槽的引用：父组件向子组件发布消息 -->
       <template v-slot:headname>查询城市</template>
-      <template v-slot:title="obj">查询{{obj.msg}}</template>
+      <template v-slot:title="obj">查询{{obj.username}}</template>
     </SearchName>
     <SearchName :typeText="html">
       <template v-slot:headname>查询专业</template>
@@ -57,7 +57,7 @@ export default {
   },
   components: {
     //子组件
-    // HelloWorld
+    // HelloWorld,
     TodoList,
     SearchName
   }

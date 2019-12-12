@@ -36,6 +36,7 @@ export default {
   methods: {
     additem() {
       //如果不为空就插入数据
+      this.$emit("update:title", 10);
       if (this.cons) {
         let con = {
           id: this.tasklist.length + 1,

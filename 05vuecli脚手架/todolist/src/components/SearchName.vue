@@ -10,7 +10,7 @@
       <div class="input-group-append">
         <button type="button" class="btn btn-success">
           <!-- 插槽的应用：这里留一个插槽 -->
-          <slot name="title" :msg="fcg"></slot>
+          <slot name="title" :msg="fcg" username="malin" :password="123"></slot>
         </button>
       </div>
     </div>
