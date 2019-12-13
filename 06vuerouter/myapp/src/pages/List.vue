@@ -15,7 +15,7 @@
             @click.native="goto(item.goods_id)"
             v-for="(item) in good.goods.item"
             :key="item.goods_id"
-            :span="12"
+            :span="6"
           >
             <p>
               <img :src="item.goods_image" class="image" />

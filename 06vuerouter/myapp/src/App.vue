@@ -78,6 +78,7 @@ export default {
   methods: {
     handleSelect(index, indexpath) {
       window.console.log(index, indexpath);
+      this.activeIndex = indexpath;
     },
     goto(path) {
       // window.console.log(this);
