@@ -10,21 +10,23 @@
     <div class="list">
       <div class="good" v-for="(good) in goodslist" :key="good.goods.title">
         <h1>{{good.goods.title}}</h1>
-        <el-row>
+        <el-row :gutter="20">
           <el-col
             @click.native="goto(item.goods_id)"
             v-for="(item) in good.goods.item"
             :key="item.goods_id"
             :span="6"
           >
-            <p>
-              <img :src="item.goods_image" class="image" />
-            </p>
-            <p>{{ item.goods_name }}</p>
-            <p>
-              <del>￥：{{ item.goods_price}}</del>
-              <strong>￥:{{item.goods_promotion_price}}</strong>
-            </p>
+            <div class="grid-content bg-purple">
+              <p>
+                <img :src="item.goods_image" class="image" />
+              </p>
+              <p>{{ item.goods_name }}</p>
+              <p>
+                <del>￥：{{ item.goods_price}}</del>
+                <strong>￥:{{item.goods_promotion_price}}</strong>
+              </p>
+            </div>
           </el-col>
         </el-row>
       </div>

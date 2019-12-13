@@ -12,6 +12,7 @@ import router from './router/index.js';
 import axios from 'axios';
 Vue.prototype.$axios = axios;
 
+
 new Vue({
   //4.把router实例注入到vue实例中
   router,

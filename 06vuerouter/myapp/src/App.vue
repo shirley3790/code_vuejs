@@ -36,6 +36,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: "app",
   data: function() {
@@ -96,7 +98,11 @@ export default {
       //repalce()
     }
   },
-  components: {}
+  components: {},
+  created() {
+   
+
+  }
 };
 </script>
 <style  lang="scss">

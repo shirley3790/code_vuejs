@@ -2,7 +2,7 @@
   <div>
     <h1>详情</h1>
     <img :src="data.goods_image" alt />
-    <p>{{data.goods_info.goods_name}}</p>
+    <p>{{data.goods_info.goods_name || ''}}</p>
   </div>
 </template>
 <script>
@@ -27,7 +27,7 @@ export default {
       }
     });
     this.data = datas;
-    window.console.log(datas);
+    // window.console.log(datas);
   }
 };
 </script>
