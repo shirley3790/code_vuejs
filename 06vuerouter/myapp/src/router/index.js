@@ -7,6 +7,9 @@ import Home from '../pages/Home.vue';
 import Login from '../pages/Login.vue';
 import Reg from '../pages/Reg.vue';
 import Cart from '../pages/Cart.vue';
+import List from '../pages/List.vue';
+import About from '../pages/About.vue';
+import Mine from '../pages/Mine.vue';
 import Notfound from '../pages/Notfound.vue';
 
 //2.使用vue-router（script标签引入方式自动完成）
@@ -38,13 +41,30 @@ let router = new VueRouter({
             component: Reg
         }, {
             name: 'login',
-            path: '/login',
+            path: '/login/:id',//获取动态路由
             component: Login
         },
         {
             name: '404',
-            path: '*',
+            path: '/404',
             component: Notfound
+        },
+        {
+            name: '404',
+            path: '*',
+            redirect: '/404' //重定向
+        }, {
+            name: 'list',
+            path: '/list',
+            component: List
+        }, {
+            name: 'mine',
+            path: '/mine',
+            component: Mine
+        }, {
+            name: 'about',
+            path: '/about',
+            component: About
         }
     ]
 });
