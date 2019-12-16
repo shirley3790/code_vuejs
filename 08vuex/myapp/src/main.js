@@ -15,7 +15,7 @@ Vue.prototype.$axios = axios;
 
 
 //导入store模块
-import store from './store/index.js';
+import store from './store/index2.js/index.js';
 
 new Vue({
   //4.把router实例注入到vue实例中
