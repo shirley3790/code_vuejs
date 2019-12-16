@@ -5,5 +5,10 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  beforeRouteLeave(to, from, next) {
+    window.console.log("Home.beforeRouteLeave");
+    next();
+  }
+};
 </script>

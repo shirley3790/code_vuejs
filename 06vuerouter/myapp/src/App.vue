@@ -40,7 +40,7 @@ export default {
   name: "app",
   data: function() {
     return {
-      activeIndex: "/home",
+      activeIndex: "/list",
       tags: [
         {
           name: "home",

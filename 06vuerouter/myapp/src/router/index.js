@@ -41,8 +41,12 @@ let router = new VueRouter({
             component: Reg
         }, {
             name: 'login',
-            path: '/login/:id',//获取动态路由
-            component: Login
+            path: '/login',
+            component: Login,
+            beforeEnter(to, from, next) {
+                window.console.log("Login.beforeEnter");
+                next();
+            }
         },
         {
             name: '404',
@@ -79,5 +83,24 @@ let router = new VueRouter({
         }
     ]
 });
+
+
+// 全局路由守卫
+router.beforeEach(function (to, from, next) {
+    window.console.log("index.beforeEach");
+    next();
+})
+
+router.beforeResolve(function (to, from, next) {
+    window.console.log("index.beforeResolve");
+    next();
+})
+
+router.afterEach(function (to, from, next) {
+    window.console.log("index.afterEach ");
+    next();
+})
+
+
 
 export default router;
