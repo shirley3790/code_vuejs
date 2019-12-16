@@ -36,8 +36,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: "app",
   data: function() {
@@ -55,12 +53,6 @@ export default {
           path: "/list",
           text: "列表页",
           component: "List"
-        },
-        {
-          name: "about",
-          path: "/about",
-          text: "详情页",
-          component: "About"
         },
         {
           name: "cart",
@@ -99,10 +91,7 @@ export default {
     }
   },
   components: {},
-  created() {
-   
-
-  }
+  created() {}
 };
 </script>
 <style  lang="scss">

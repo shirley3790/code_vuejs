@@ -23,17 +23,44 @@
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
       </el-form-item>
     </el-form>
+
+    <!-- 测试定义时跳转props -->
+    <!-- <router-link :to="{name : 'list',params:{a : 1, b : 2}}">跳到列表页</router-link> -->
+    <!-- <router-link :to="{name:'list',params:{a:10,b:20}}">跳列表页</router-link> -->
+    <!-- <input type="button" value="跳到列表页" @click="go('/list')" /> -->
   </div>
 </template>
 <script>
+import Qs from "qs";
 export default {
   data: function() {
+    //验证密码和确认密码
     var checkPass = (rule, value, callback) => {
       if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
+    };
+    //验证用户名是否存在
+    var checkName = async (rule, value, callback) => {
+      let { data } = await this.$axios.get(
+        "http://localhost:1911/users/check",
+        {
+          params: {
+            name: this.ruleForm.username
+          }
+        }
+      );
+      if (data.code == 1) {
+        //可以注册
+        callback();
+      } else {
+        //不能注册
+        callback(new Error("用户名已存在!"));
+      }
+      window.console.log(data);
+      window.console.log(rule, value, callback);
     };
     return {
       ruleForm: {
@@ -43,7 +70,8 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { validator: checkName, trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
@@ -58,9 +86,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async valid => {
         if (valid) {
-          alert("注册成功!");
+          // alert("注册成功!");
+
+          //需求：发起请求，实现注册功能
+          let { username: name, password } = this.ruleForm;
+          var datastr = Qs.stringify({ name, password });
+          let { data } = await this.$axios.post(
+            "http://localhost:1911/users/reg",
+            datastr,
+            {
+              headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            }
+          );
+
+          window.console.log(data);
+
           //需求：注册成功跳转到登陆页，并且把用户名带过去
           /*
               内置属性：
@@ -100,6 +142,10 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+    // go(name) {
+    //   // this.$router.push({ name: name, params: { id: 666 } });
+    //   // this.$router.push({ path: name });
+    // }
   }
 };
 </script>

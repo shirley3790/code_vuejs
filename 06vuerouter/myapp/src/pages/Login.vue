@@ -2,6 +2,7 @@
   <div>
     <h1>登陆页</h1>
     <p>{{ name }} 欢迎登陆</p>
+    <router-link :to="{name:'list',params:{a:10,b:20}}">跳列表页</router-link>
   </div>
 </template>
 <script>

@@ -56,14 +56,25 @@ let router = new VueRouter({
         }, {
             name: 'list',
             path: '/list',
-            component: List
+            component: List,
+            props: {
+                username: 'laoxie',
+                password: 123456
+            }  //<List username="laoxie" password="123456" />
+            // props : true //如果你写了布尔值，那默认就会接受的prams里面的数据 ：等效于<List v-bind="route.params"/> -> <List v-bind="{username:'laoxie',age:18}"/> -> <List username="laoxie" password=123/>
+            // props: function () {
+            //     return {
+            //         username: 'laoxie',
+            //         password: 123
+            //     }
+            // }
         }, {
             name: 'mine',
             path: '/mine',
             component: Mine
         }, {
             name: 'about',
-            path: '/about',
+            path: '/about/:id',
             component: About
         }
     ]

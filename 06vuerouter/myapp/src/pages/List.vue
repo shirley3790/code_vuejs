@@ -10,7 +10,8 @@
     <div class="list">
       <div class="good" v-for="(good) in goodslist" :key="good.goods.title">
         <h1>{{good.goods.title}}</h1>
-        <el-row :gutter="20">
+        <el-row :gutter="10">
+          <!-- native作用：触发绑定在组件上的事件 -->
           <el-col
             @click.native="goto(item.goods_id)"
             v-for="(item) in good.goods.item"
@@ -35,6 +36,9 @@
 </template>
 <script>
 export default {
+  //定义时传参
+  props: ["username", "password"],
+  name: "List",
   data() {
     return {
       goodslist: "",
@@ -44,7 +48,8 @@ export default {
   methods: {
     goto(id) {
       // window.console.log(id);
-      this.$router.push({ name: "about", query: { id } });
+      // this.$router.push({ name: "about", query: { id } });
+      this.$router.push({ path: "/about/" + id });
     }
   },
   async created() {
