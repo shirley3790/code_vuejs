@@ -40,7 +40,7 @@ export default {
   name: "app",
   data: function() {
     return {
-      activeIndex: "/list",
+      activeIndex: "/home",
       tags: [
         {
           name: "home",
@@ -72,7 +72,8 @@ export default {
   methods: {
     handleSelect(index, indexpath) {
       window.console.log(index, indexpath);
-      this.activeIndex = indexpath;
+      // this.activeIndex = indexpath;
+      this.activeIndex = index;
     },
     goto(path) {
       // window.console.log(this);
@@ -91,7 +92,9 @@ export default {
     }
   },
   components: {},
-  created() {}
+  created() {
+    this.activeIndex = this.$route.path;
+  }
 };
 </script>
 <style  lang="scss">

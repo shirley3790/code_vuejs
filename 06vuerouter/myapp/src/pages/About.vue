@@ -48,7 +48,7 @@ export default {
     goto(id) {
       //方案一：点击的时候直接就发送ajax请求新的数据渲染
       // this.getdata(id); //点击一次就请求一次新的数据替换上面的内容
-      
+
       this.$router.push({ path: "/about/" + id });
     },
     async getdata(id) {
@@ -89,17 +89,17 @@ export default {
   },
   //组件内的路由守卫,路由拦截
   beforeRouteEnter(to, from, next) {
-    window.console.log("beforeRouteEnter:", to, from);
+    // window.console.log("beforeRouteEnter:", to, from);
     next();
   },
   beforeRouteUpdate(to, from, next) {
     //方案三：利用路由守卫来发起新的请求
-    window.console.log("beforeRouteUpdate:", to, from);
+    // window.console.log("beforeRouteUpdate:", to, from);
     this.getdata(to.params.id);
     next();
   },
   beforeRouteLeave(to, from, next) {
-    window.console.log("beforeRouteLeave:", to, from);
+    // window.console.log("beforeRouteLeave:", to, from);
     next();
   }
 };

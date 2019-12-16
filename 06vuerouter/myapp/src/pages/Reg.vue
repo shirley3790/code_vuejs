@@ -101,6 +101,17 @@ export default {
             }
           );
 
+          //成功就跳转到登录页并把用户名带过去
+          if (data.code) {
+            this.$router.push({
+              name: "login",
+              query: { name },
+              params: { name }
+            });
+          } else {
+            alert("注册失败");
+          }
+
           window.console.log(data);
 
           //需求：注册成功跳转到登陆页，并且把用户名带过去
@@ -121,7 +132,7 @@ export default {
           // this.$router.push({ name: "login" });//单纯的实现页面跳转
 
           //要携带数据，必须是写name的方式，params传参，只支持name方式跳转
-          let { username } = this.ruleForm;
+          // let { username } = this.ruleForm;
           // this.$router.push({ name: "login", params: { username } }); //单纯的实现页面跳转
 
           // this.$router.push({
@@ -131,7 +142,7 @@ export default {
           // }); //单纯的实现页面跳转
 
           //动态路由
-          this.$router.push("/login/" + username);
+          // this.$router.push("/login/" + username);
           // this.$router.push({ name: "login", params: { id } });
         } else {
           window.console.log("注册失败!!");

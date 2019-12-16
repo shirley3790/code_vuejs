@@ -6,8 +6,9 @@
 </template>
 <script>
 export default {
+  //2.在失活的组件里调用beforeRouteLeave离开守卫。
   beforeRouteLeave(to, from, next) {
-    window.console.log("Home.beforeRouteLeave");
+    // window.console.log("Home.beforeRouteLeave");
     next();
   }
 };

@@ -28,7 +28,7 @@
         </el-col>
         <el-col :span="12" class="price" style="text-align:right">
           总计：
-          <span>888</span>
+          <span>{{totalPrice.toFixed(2)}}</span>
         </el-col>
       </el-row>
       <div style="text-align:right">
@@ -68,6 +68,25 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    totalPrice() {
+      // let total = 0;
+      // this.datalist.forEach(item=>{
+      //     total += item.price*item.qty;
+      // })
+      // return total;
+
+      return this.datalist.reduce((pre, item) => {
+        // pre ： 前一次的返回值（第一次为初始值）
+        return pre + item.price * item.qty;
+      }, 0);
+    }
+  },
+  methods: {
+    changeQty(currentValue, oldValue) {
+      window.console.log(currentValue, oldValue);
+    }
   }
 };
 </script>

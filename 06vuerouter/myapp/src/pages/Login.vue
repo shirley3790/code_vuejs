@@ -73,6 +73,17 @@ export default {
             if (data.code == 1) {
               //成功登陆
               this.open2();
+              //把token写入本地存储
+              localStorage.setItem("Authorization", data.authorization);
+
+              //跳转到个人中心页面=>跳转到上一页
+
+              let { targeturl } = this.$route.query;
+
+              this.$router.push({
+                path: targeturl || "/mine",
+                params: { name }
+              });
             }
             window.console.log(data);
           }
