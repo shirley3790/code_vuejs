@@ -15,16 +15,13 @@ export default {
             }
 
             // 存入本地存储
-            localStorage.setItem("user", JSON.stringify({
-                username,
-                Authorization
-            }));
+            localStorage.setItem("Authorization", state.user.Authorization);
         },
         logout(state) {
             state.user = null;
 
             // 清空本地存储
-            localStorage.removeItem("user");
+            localStorage.removeItem("Authorization");
         }
     },
     actions: {

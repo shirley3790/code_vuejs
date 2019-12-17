@@ -87,7 +87,7 @@ export default {
       let id = this.goodsInfo.goods_info.goods_id;
 
       // 判断当前商品是否已经存在购物车
-      let currentGoods = this.$store.state.cartlist.filter(
+      let currentGoods = this.$store.state.cart.cartlist.filter(
         item => item.id === id
       )[0];
       window.console.log(currentGoods);

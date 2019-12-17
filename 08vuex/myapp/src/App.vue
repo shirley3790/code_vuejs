@@ -93,6 +93,7 @@ export default {
   },
   created() {
     this.activeIndex = this.$route.path;
+    this.$store.dispatch("checkLogin");
   }
 };
 </script>

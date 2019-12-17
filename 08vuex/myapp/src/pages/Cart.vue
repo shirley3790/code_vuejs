@@ -90,7 +90,7 @@ export default {
       return this.$store.getters.totalprice;
     },
     cartlist() {
-      return this.$store.state.cartlist;
+      return this.$store.state.cart.cartlist;
     }
   },
   methods: {
