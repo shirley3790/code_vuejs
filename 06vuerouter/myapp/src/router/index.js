@@ -34,7 +34,7 @@ let router = new VueRouter({
             name: 'cart',
             path: '/cart',
             component: Cart,
-            meta: {
+            meta: { //设置该元信息就是为了鉴权
                 requiresAuth: true
             }
         },
@@ -79,7 +79,7 @@ let router = new VueRouter({
             name: 'mine',
             path: '/mine',
             component: Mine,
-            meta: {
+            meta: { //设置该元信息就是为了鉴权
                 requiresAuth: true
             }
         }, {
@@ -91,28 +91,35 @@ let router = new VueRouter({
 });
 
 
-// 全局路由守卫
+// 全局路由守卫 beforeEach() 路由拦截
 router.beforeEach(function (to, from, next) {
+    //to:目标组件，准备进入的组件
+    //form:失活组件，从这个地方离开
+    //next() 进入下一个钩子,流程
     window.console.log("index.beforeEach", to);
-    // 在全局路由守卫beforeEach中进行页面权限访问控制
-    // 先判断目标路由是否需要鉴权
+
+    //怎么鉴权
+
+
     if (to.meta.requiresAuth) {
-        //需要鉴权，没有登录不允许访问
+        //需要鉴权
         let token = localStorage.getItem('Authorization');
-        if (token) {
+        if (token) {//登陆就可以进入下一步：这样写所有都需要鉴权才可进入下个组件
             next();
         } else {
-            //如果没有token先跳到登录页
+            //没有token，token已经失效
+            //如果你未登录，就让你跳到登陆页
             router.push({
-                name: 'login',
-                query: {
+                name: 'login', params: {
                     targeturl: to.path
                 }
             });
         }
     } else {
+        //不需要鉴权
         next();
     }
+
 })
 
 // router.beforeResolve(function (to, from, next) {
@@ -120,11 +127,9 @@ router.beforeEach(function (to, from, next) {
 //     next();
 // })
 
-// router.afterEach(function () {
+// router.afterEach(function () {//最后一步是没有next的
 //     window.console.log("index.afterEach ");
 
 // })
-
-
 
 export default router;

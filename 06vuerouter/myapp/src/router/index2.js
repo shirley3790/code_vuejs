@@ -33,7 +33,10 @@ let router = new VueRouter({
         {
             name: 'cart',
             path: '/cart',
-            component: Cart
+            component: Cart,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             name: 'reg',
@@ -75,7 +78,10 @@ let router = new VueRouter({
         }, {
             name: 'mine',
             path: '/mine',
-            component: Mine
+            component: Mine,
+            meta: {
+                requiresAuth: true
+            }
         }, {
             name: 'about',
             path: '/about/:id',
@@ -86,10 +92,28 @@ let router = new VueRouter({
 
 
 // 全局路由守卫
-// router.beforeEach(function (to, from, next) {
-//     window.console.log("index.beforeEach", to);
-//         next();
-// })
+router.beforeEach(function (to, from, next) {
+    window.console.log("index.beforeEach", to);
+    // 在全局路由守卫beforeEach中进行页面权限访问控制
+    // 先判断目标路由是否需要鉴权
+    if (to.meta.requiresAuth) {
+        //需要鉴权，没有登录不允许访问
+        let token = localStorage.getItem('Authorization');
+        if (token) {
+            next();
+        } else {
+            //如果没有token先跳到登录页
+            router.push({
+                name: 'login',
+                query: {
+                    targeturl: to.path
+                }
+            });
+        }
+    } else {
+        next();
+    }
+})
 
 // router.beforeResolve(function (to, from, next) {
 //     window.console.log("index.beforeResolve");
@@ -100,5 +124,7 @@ let router = new VueRouter({
 //     window.console.log("index.afterEach ");
 
 // })
+
+
 
 export default router;

@@ -25,15 +25,15 @@
   </div>
 </template>
 <script>
-// import Qs from "qs";
 export default {
+  name: "Login",
   data: function() {
     return {
+      checked: true,
       ruleForm: {
         username: "",
         password: ""
       },
-      checked: true, //复选框
       rules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" }
@@ -42,62 +42,70 @@ export default {
       }
     };
   },
+  created() {
+    // window.console.log(this);
+    // this.name = this.$route.params.username; //通过$route.params获取到params传过来的数据。缺点，刷新后数据就不存在了
+    // this.name = this.$route.query.username; //通过$route.params获取到params传过来的数据。缺点，刷新后数据就不存在了
+    // this.name = this.$route.params.id; //通过$route.params获取到params传过来的数据。缺点，刷新后数据就不存在了
+    // window.console.log(this.$route);
+  },
   methods: {
-    open4() {
-      this.$message.error("登陆失败");
-    },
     open2() {
       this.$message({
-        message: "恭喜你，登陆成功",
+        message: "登陆成功",
         type: "success"
       });
+    },
+    open4() {
+      this.$message.error("登陆失败");
     },
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
           // alert("注册成功!");
-
-          //需求：发起请求，实现注册功能
+          //需求：发起请求，实现登陆功能
           let { username: name, password } = this.ruleForm;
-          if (name && password) {
-            let { data } = await this.$axios.get(
-              "http://localhost:1911/users/login",
-              {
-                params: {
-                  name,
-                  password,
-                  keep: this.checked
-                }
+          let { data } = await this.$axios.get(
+            "http://localhost:1911/users/login",
+            {
+              params: {
+                name,
+                password,
+                keep: this.checked
               }
-            );
-            if (data.code == 1) {
-              //成功登陆
-              this.open2();
-              //把token写入本地存储
-              localStorage.setItem("Authorization", data.authorization);
-
-              //跳转到个人中心页面=>跳转到上一页
-
-              let { targeturl } = this.$route.query;
-
-              this.$router.push({
-                path: targeturl || "/mine",
-                params: { name }
-              });
             }
-            window.console.log(data);
+          );
+
+          window.console.log(data);
+          //如果登陆成功，就把token存到本地存储，待会路由拦截的时候需要用到token来鉴权(鉴别你是否有权限进入该组件)
+          if (data.code) {
+            //登陆成功
+            this.open2();
+            localStorage.setItem("Authorization", data.authorization);
+
+            //跳转到我的页面
+            let { targeturl } = this.$route.params;
+            // window.console.log(targeturl);
+
+            this.$router.push({ path: targeturl || "/mine", query: { name } });
+          } else {
+            //登陆失败
+            this.open4();
           }
         } else {
-          window.console.log("登陆失败!!");
+          // window.console.log("注册失败!!");
           this.open4();
           return false;
         }
       });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    window.console.log("Login.beforeRouteEnter");
-    next();
+    // go(name) {
+    //   // this.$router.push({ name: name, params: { id: 666 } });
+    //   // this.$router.push({ path: name });
+    // }
   }
 };
 </script>

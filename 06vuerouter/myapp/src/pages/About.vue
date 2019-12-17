@@ -77,7 +77,7 @@ export default {
   },
   //监听
   watch: {
-    //方案二：利用监听器监听路由改变就发起新的请求
+    //方案二：利用监听器监听路由改变就发起新的请求:ajax节流：无谓的请求要避免
     // $route: function(newval, oldval) {
     //   // window.console.log(newval); //新值
     //   // window.console.log(oldval); //旧值
@@ -88,19 +88,19 @@ export default {
     // }
   },
   //组件内的路由守卫,路由拦截
-  beforeRouteEnter(to, from, next) {
-    // window.console.log("beforeRouteEnter:", to, from);
-    next();
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   // window.console.log("beforeRouteEnter:", to, from);
+  //   next();
+  // },
   beforeRouteUpdate(to, from, next) {
     //方案三：利用路由守卫来发起新的请求
-    // window.console.log("beforeRouteUpdate:", to, from);
+    window.console.log("beforeRouteUpdate:", to, from);
     this.getdata(to.params.id);
     next();
-  },
-  beforeRouteLeave(to, from, next) {
-    // window.console.log("beforeRouteLeave:", to, from);
-    next();
   }
+  // beforeRouteLeave(to, from, next) {
+  //   // window.console.log("beforeRouteLeave:", to, from);
+  //   next();
+  // }
 };
 </script>

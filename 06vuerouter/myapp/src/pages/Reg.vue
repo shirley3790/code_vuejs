@@ -85,6 +85,15 @@ export default {
     };
   },
   methods: {
+    open2() {
+      this.$message({
+        message: "注册成功",
+        type: "success"
+      });
+    },
+    open4() {
+      this.$message.error("注册失败");
+    },
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
@@ -103,16 +112,18 @@ export default {
 
           //成功就跳转到登录页并把用户名带过去
           if (data.code) {
+            this.open2();
             this.$router.push({
               name: "login",
               query: { name },
               params: { name }
             });
           } else {
+            this.open4();
             alert("注册失败");
           }
 
-          window.console.log(data);
+          // window.console.log(data);
 
           //需求：注册成功跳转到登陆页，并且把用户名带过去
           /*
@@ -145,7 +156,8 @@ export default {
           // this.$router.push("/login/" + username);
           // this.$router.push({ name: "login", params: { id } });
         } else {
-          window.console.log("注册失败!!");
+          // window.console.log("注册失败!!");
+          this.open4();
           return false;
         }
       });
