@@ -96,11 +96,9 @@ router.beforeEach(function (to, from, next) {
     //to:目标组件，准备进入的组件
     //form:失活组件，从这个地方离开
     //next() 进入下一个钩子,流程
-    window.console.log("index.beforeEach", to);
+    // window.console.log("index.beforeEach", to);
 
     //怎么鉴权
-
-
     if (to.meta.requiresAuth) {
         //需要鉴权
         let token = localStorage.getItem('Authorization');
