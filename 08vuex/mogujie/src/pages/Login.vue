@@ -81,7 +81,11 @@ export default {
           if (data.code) {
             //登陆成功
             this.open2();
-            localStorage.setItem("Authorization", data.authorization);
+            // localStorage.setItem("Authorization", data.authorization);
+            this.$store.commit("login", {
+              username: name,
+              Authorization: data.authorization
+            });
 
             //跳转到我的页面
             let { targeturl } = this.$route.params;

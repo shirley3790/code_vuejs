@@ -66,7 +66,7 @@ export default {
       return this.$store.getters.allprice;
     },
     cartList() {
-      return this.$store.state.cartList;
+      return this.$store.state.cart.cartList;
     }
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
   created() {
     //钩子函数
     // let data = this.$store.state.products; //获取store里面的数据
-    let data = this.$store.state.cartList; //获取store里面的数据，测试数据
+    let data = this.$store.state.cart.cartList; //获取store里面的数据，测试数据
     window.console.log(data);
   }
 };

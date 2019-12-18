@@ -78,7 +78,9 @@ export default {
       //判断商品是否存在
 
       let id = this.goodsInfo.goods_info.goods_id;
-      let result = this.$store.state.cartList.filter(item => item.id == id)[0]; //说明商品已存在
+      let result = this.$store.state.cart.cartList.filter(
+        item => item.id == id
+      )[0]; //说明商品已存在
       if (result) {
         //商品已存在
         let qty = result.qty + 1;

@@ -26,9 +26,12 @@
             </el-menu>
           </el-col>
           <el-col :span="8">
-            <el-button-group>
+            <el-button-group v-if="!currentStatue">
               <el-button type="primary" @click="goto('/reg')">注册</el-button>
               <el-button type="primary" @click="goto('/login')">登陆</el-button>
+            </el-button-group>
+            <el-button-group v-else>
+              <el-button type="primary" @click="logout('/login')">退出</el-button>
             </el-button-group>
           </el-col>
         </el-row>
@@ -96,15 +99,26 @@ export default {
       // this.$router.push({name : 'reg'}); //和<router-link to="path">
 
       //repalce()
+    },
+    logout() {
+      window.console.log("退出了");
+      this.$store.commit("logout");
     }
   },
   components: {},
   created() {
     this.activeIndex = this.$route.path;
+    //进入页面就马上判断现在的登陆状态，因为刷新页面状态无法保留
+    this.$store.dispatch("checkLogin");
   },
   computed: {
     cartLength() {
-      return this.$store.state.cartList.length;
+      return this.$store.state.cart.cartList.length;
+    },
+    currentStatue() {
+      window.console.log(this.$store.getters.currentStatue);
+      // return this.$store.getters.currentStatue;
+      return this.$store.state.common.user;
     }
   }
 };
