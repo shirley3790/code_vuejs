@@ -101,7 +101,8 @@ router.beforeEach(function (to, from, next) {
     //怎么鉴权
     if (to.meta.requiresAuth) {
         //需要鉴权
-        let token = localStorage.getItem('Authorization');
+        let token = localStorage.getItem('authorization');
+
         if (token) {//登陆就可以进入下一步：这样写所有都需要鉴权才可进入下个组件
             next();
         } else {

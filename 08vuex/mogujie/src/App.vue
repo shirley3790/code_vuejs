@@ -100,9 +100,10 @@ export default {
 
       //repalce()
     },
-    logout() {
+    logout(path) {
       window.console.log("退出了");
-      this.$store.commit("logout");
+      this.$store.commit("logout"); //退出了回到登陆页
+      this.$router.push({ path: path });
     }
   },
   components: {},
