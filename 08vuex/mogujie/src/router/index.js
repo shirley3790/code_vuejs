@@ -17,6 +17,7 @@ Vue.use(VueRouter);
 
 //3.实例化router并配置参数
 let router = new VueRouter({
+    mode: 'history',
     routes: [
         //首页的路由
         {
