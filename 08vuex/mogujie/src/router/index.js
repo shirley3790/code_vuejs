@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 
 //3.实例化router并配置参数
 let router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes: [
         //首页的路由
         {
@@ -104,13 +104,14 @@ router.beforeEach(function (to, from, next) {
         //需要鉴权
         let token = localStorage.getItem('authorization');
 
-        if (token) {//登陆就可以进入下一步：这样写所有都需要鉴权才可进入下个组件
+        if (token) { //登陆就可以进入下一步：这样写所有都需要鉴权才可进入下个组件
             next();
         } else {
             //没有token，token已经失效
             //如果你未登录，就让你跳到登陆页
             router.push({
-                name: 'login', params: {
+                name: 'login',
+                params: {
                     targeturl: to.path
                 }
             });
