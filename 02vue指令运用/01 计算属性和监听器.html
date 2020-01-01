@@ -42,14 +42,14 @@
         },
         //computed 计算属性 里面的属性 getter&setter
         computed: {
-            sum2() {//计算属性会进行缓存，如果值没有改变，不会调用，只有被改变了，才会重新调用计算。默认只有getter函数，所以也是单向的
+            sum2() { //计算属性会进行缓存，如果值没有改变，不会调用，只有被改变了，才会重新调用计算。默认只有getter函数，所以也是单向的
                 console.log('计算属性sum2被调用了');
                 //this指的是vm，可以用vm.chinese this.chinese vm.sum1()
                 return this.chinese * 1 + this.math * 1;
             },
             sum3: {
                 get() {
-                    console.log('计算属性sum2被调用了');
+                    console.log('计算属性sum3被调用了');
                     //this指的是vm，可以用vm.chinese this.chinese vm.sum1()
                     return this.chinese * 1 + this.math * 1;
                 },
@@ -64,7 +64,7 @@
         watch: { //监听器第一种写法
             //如果语文发生改变就触发这里
             chinese: function (newval, oldval) {
-                // console.log(newval, oldval);
+                console.log(newval, oldval);
                 this.total = this.math * 1 + newval * 1;
                 // this.sum1();
             }
