@@ -13,6 +13,7 @@ let item = {
       let istrue = confirm(`您确定要开掉${this.item.name}吗？`);
       if (istrue)
         this.removeitem(this.index);
+
     }
   }
 

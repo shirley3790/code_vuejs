@@ -1,0 +1,23 @@
+{
+  "name": "code_vuejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shirley3790/code_vuejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shirley3790/code_vuejs/issues"
+  },
+  "homepage": "https://github.com/shirley3790/code_vuejs#readme",
+  "dependencies": {
+    "pubsub-js": "^1.8.0"
+  }
+}

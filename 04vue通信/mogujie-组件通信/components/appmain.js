@@ -3,6 +3,7 @@ let appMain = {
 
     <!--右边上半区域-->
     <app-dash :hobbies="hobbies" @removehb="removeHobby">
+    <p slot="test">666</p>
       <h1 class="page-header" slot="titledash">{{ keyword }}</h1>
     </app-dash>
     <!--右边下半区域-->
@@ -27,11 +28,26 @@ let appMain = {
     */
     return {
       hobbies: ['王者', '魂斗罗', '雪人兄弟', '超级玛丽'], //准备用来渲染到appdash组件里面
-      empList: [
-        { id: 1, name: '马云', salary: 80001 },
-        { id: 2, name: '东哥', salary: 80002 },
-        { id: 3, name: '小马哥', salary: 80003 },
-        { id: 4, name: '罗老师', salary: 80004 }
+      empList: [{
+          id: 1,
+          name: '马云',
+          salary: 80001
+        },
+        {
+          id: 2,
+          name: '东哥',
+          salary: 80002
+        },
+        {
+          id: 3,
+          name: '小马哥',
+          salary: 80003
+        },
+        {
+          id: 4,
+          name: '罗老师',
+          salary: 80004
+        }
       ],
       keyword: '仪表盘'
     }

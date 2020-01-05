@@ -1,6 +1,7 @@
 let appDash = {
   template: `<div>
   <slot name="titledash"></slot>
+  <slot name="test" />
   <div class="row placeholders">
   
   <div 
@@ -24,5 +25,4 @@ let appDash = {
         this.$emit('removehb', index);
     }
   }
-
 }
