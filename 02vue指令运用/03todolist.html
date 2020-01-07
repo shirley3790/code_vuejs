@@ -52,9 +52,9 @@
                         <td>{{ item.endtime }}</td>
                         <td>{{ item.completed }}</td>
                         <td>
-                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <div class="btn-group mr-2" @click.stop role="group" aria-label="First group">
                                 <button type="button" class="btn btn-success btn-sm"
-                                    @click.stop="change(index)">完成</button>
+                                    @click.once="change(index)">完成</button>
                                 <button type="button" class="btn btn-danger btn-sm"
                                     @click.stop="remove(index)">删除</button>
                             </div>
@@ -67,7 +67,6 @@
 </body>
 <script src="../vue.js"></script>
 <script>
-
     (() => {
         /*
             任务清单需求：
@@ -88,11 +87,11 @@
         let vm = new Vue({
             el: '#app',
             data: {
-                taskList: [//默认的任务数据
+                taskList: [ //默认的任务数据
                     {
                         id: 1,
                         msg: '定个小目标，完成一个亿',
-                        completed: '否',//未完成
+                        completed: '否', //未完成
                         isSelected: false,
                         endtime: '2019-12-25'
                     }
@@ -141,11 +140,11 @@
                         let con = {
                             id: this.taskList.length + 1,
                             msg: this.cons,
-                            completed: '否',//未完成
+                            completed: '否', //未完成
                             isSelected: false,
                             endtime: this.endtime
                         }
-                        this.taskList.push(con);//新任务放在下面
+                        this.taskList.push(con); //新任务放在下面
 
                         //清空数据并聚焦
                         this.cons = '';
@@ -161,6 +160,7 @@
                     //         item.completed = '是';
                     //     }
                     // });
+                    console.log('完成状态被改了');
 
                     this.taskList[index].completed = '是';
                 },
@@ -180,7 +180,6 @@
 
 
     })();
-
 </script>
 
 </html>

@@ -22,6 +22,8 @@
             <input type="checkbox" name="skills" value="java" v-model="likes">Java开发
             <input type="checkbox" name="skills" value="vue" v-model="likes">Vue.js开发
             <input type="checkbox" name="skills" value="python" v-model="likes">Python开发
+            <input type="checkbox" name="" v-model="s">Python开发
+
             <br><br>
             城市(下拉框)：
             <!-- 这里记得要获取下拉的value值，记得写在select -->
@@ -42,13 +44,26 @@
         el: '#app',
         //默认的数据渲染
         data: {
+            s: true,
             sex: 0,
             likes: ['java', 'vue'],
             citys: [ //初始化下拉框
-                { code: 'bj', name: '北京' },
-                { code: 'sh', name: '上海' },
-                { code: 'sz', name: '深圳' },
-                { code: 'gz', name: '广州' }
+                {
+                    code: 'bj',
+                    name: '北京'
+                },
+                {
+                    code: 'sh',
+                    name: '上海'
+                },
+                {
+                    code: 'sz',
+                    name: '深圳'
+                },
+                {
+                    code: 'gz',
+                    name: '广州'
+                }
             ],
             city: 'gz', //设置默认值
             texts: ''

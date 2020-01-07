@@ -26,8 +26,8 @@
         <p @click="showme('hello',$event)">字节跳动</p>
 
         <!-- 2.阻止冒泡 -->
-        <div class="father" @click="father()">
-            <p class="son" @click.stop="son()"></p>
+        <div class="father" @click="father">
+            <p class="son" @click.stop="son"></p>
         </div>
 
         <!-- 
@@ -37,7 +37,7 @@
                 * form表单 如果写submit提交，自动提交到form的action属性所在的页面
                 * 文字被选中
          -->
-        <a href="http://baidu.com" @click.prevent="showthis()">百度</a>
+        <a href="http://baidu.com" @click.prevent="showthis">百度</a>
 
         <!-- 4..one绑定一次事件 -->
         <button @click.once="doOnly">点击事件将只会触发一次: {{num}}</button>
@@ -56,10 +56,10 @@
         },
 
         methods: {
-            show(ev) {//触发事件的事件的时候，事件对象
+            show(ev) { //触发事件的事件的时候，事件对象
                 console.log('点我了');
-                console.log(ev.target.innerHTML);//获取节点的内容
-                console.log(ev.target.tagName);//P
+                console.log(ev.target.innerHTML); //获取节点的内容
+                console.log(ev.target.tagName); //P
             },
             showme(data, ev) {
                 console.log(data + '老大');
@@ -83,7 +83,6 @@
             }
         }
     });
-
 </script>
 
 </html>
