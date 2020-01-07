@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      active: "search"
+      active: "home"
     };
   }
 };

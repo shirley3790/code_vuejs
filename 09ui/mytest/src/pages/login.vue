@@ -3,7 +3,6 @@
     <van-swipe-item>
       <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
     </van-swipe-item>
-    <van-button type="primary">注册</van-button>
     <van-button type="info">登录</van-button>
 
     <!-- 九宫格 -->

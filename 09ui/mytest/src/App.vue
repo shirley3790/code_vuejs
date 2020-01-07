@@ -2,26 +2,12 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />-->
-    <!-- 头部搜索框 -->
-    <app-search></app-search>
-    <!-- 轮播图 -->
-    <van-swipe :autoplay="3000" indicator-color="white" style="height: 200px;background:#ccc;">
-      <van-swipe-item>1</van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
-      <van-swipe-item>3</van-swipe-item>
-      <van-swipe-item>4</van-swipe-item>
-    </van-swipe>
-    <!-- 九宫格 -->
-    <van-grid>
-      <van-grid-item icon="photo-o" text="文字" />
-      <van-grid-item icon="photo-o" text="文字" />
-      <van-grid-item icon="photo-o" text="文字" />
-      <van-grid-item icon="photo-o" text="文字" />
-    </van-grid>
-    <van-divider />
-    <van-grid :gutter="10">
-      <van-grid-item v-for="value in 8" :key="value" icon="photo-o" text="文字" />
-    </van-grid>
+    <!-- <page-home></page-home> -->
+    <!-- <page-list></page-list> -->
+    <!-- <page-goods></page-goods> -->
+    <!-- <page-about></page-about> -->
+    <!-- <page-cart></page-cart> -->
+    <page-mine></page-mine>
     <!-- 底部导航 -->
     <app-foot></app-foot>
   </div>
@@ -29,7 +15,12 @@
 
 <script>
 import appFoot from "./components/appfoot.vue";
-import appSearch from "./components/appsearch.vue";
+// import pageHome from "./pages/home";
+// import pageList from "./pages/list";
+// import pageGoods from "./pages/goods";
+// import pageAbout from "./pages/about";
+// import pageCart from "./pages/mine";
+import pageMine from "./pages/mine";
 
 export default {
   data() {
@@ -39,7 +30,12 @@ export default {
   components: {
     // HelloWorld
     appFoot,
-    appSearch
+    // pageHome,
+    // pageList
+    // pageGoods
+    // pageAbout
+    // pageCart
+    pageMine
   }
 };
 </script>
