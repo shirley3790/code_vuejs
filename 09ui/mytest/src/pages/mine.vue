@@ -3,8 +3,8 @@
     <van-swipe-item>
       <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
     </van-swipe-item>
-    <van-button type="primary">注册</van-button>
-    <van-button type="info">登录</van-button>
+    <van-button type="primary" @click.native="goreg">注册</van-button>
+    <van-button type="info" @click.native="gologin">登录</van-button>
 
     <!-- 九宫格 -->
     <van-grid>
@@ -44,6 +44,15 @@ export default {
       username: "",
       password: ""
     };
+  },
+  methods: {
+    goreg() {
+      // window.console.log("触发了");
+      this.$router.push("/reg");
+    },
+    gologin() {
+      this.$router.push("/login");
+    }
   }
 };
 </script>

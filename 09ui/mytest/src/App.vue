@@ -7,7 +7,8 @@
     <!-- <page-goods></page-goods> -->
     <!-- <page-about></page-about> -->
     <!-- <page-cart></page-cart> -->
-    <page-mine></page-mine>
+    <!-- <page-mine></page-mine> -->
+    <router-view />
     <!-- 底部导航 -->
     <app-foot></app-foot>
   </div>
@@ -20,7 +21,7 @@ import appFoot from "./components/appfoot.vue";
 // import pageGoods from "./pages/goods";
 // import pageAbout from "./pages/about";
 // import pageCart from "./pages/mine";
-import pageMine from "./pages/mine";
+// import pageMine from "./pages/mine";
 
 export default {
   data() {
@@ -29,13 +30,13 @@ export default {
   name: "app",
   components: {
     // HelloWorld
-    appFoot,
+    appFoot
     // pageHome,
     // pageList
     // pageGoods
     // pageAbout
     // pageCart
-    pageMine
+    // pageMine
   }
 };
 </script>
